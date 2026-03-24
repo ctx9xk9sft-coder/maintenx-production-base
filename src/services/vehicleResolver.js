@@ -3,39 +3,83 @@ import { resolveDrivetrainField } from "./resolution/drivetrainResolver.js";
 import { inferVinConfiguration, getInferenceCandidateList } from "../lib/vinInferenceEngine.js";
 import { buildVehicleStatusContract, deriveQuoteReadiness } from "../contracts/vehicleStatusContract.js";
 
-
-function buildGearboxResolution(field = {}) {
+function buildGearboxResolution(field = {}, context = {}) {
   const semantic = field?.semantic || null;
-
-  let closureLevel = "unresolved";
-
-  if (field?.exact) {
-    closureLevel = "exact";
-  } else if (semantic?.familyClosed && !semantic?.hasConflict) {
-    closureLevel = "family";
-  } else if (semantic?.transmissionTypeClosed && !semantic?.hasConflict) {
-    closureLevel = "type";
-  }
-
-  let businessSuitability = "blocked";
-
-  if (closureLevel === "exact") {
-    businessSuitability = "exact_safe";
-  } else if (closureLevel === "family") {
-    businessSuitability = "provisional_safe";
-  } else if (closureLevel === "type") {
-    businessSuitability = "review_required";
-  }
+  const closureLevel = deriveGearboxClosureLevel(semantic, Boolean(field?.exact));
+  const businessSuitability = deriveGearboxBusinessSuitability(field, context);
 
   return {
-    exactCode: field?.exact ? field?.value : null,
-    resolvedCode: field?.value || null,
+    exactCode: field?.exact ? field?.value || null : null,
+    resolvedCode:
+      closureLevel === "exact"
+        ? field?.value || null
+        : field?.resolvedCode || null,
     resolvedFamily: semantic?.family || null,
     transmissionType: semantic?.transmissionType || semantic?.type || null,
     closureLevel,
     businessSuitability,
     source: field?.source || "unknown",
     confidence: field?.confidence || "low",
+  };
+}
+
+function deriveGearboxBusinessSuitability(field = {}, context = {}) {
+  const semantic = field?.semantic || null;
+  const closureLevel =
+    field?.closureLevel || deriveGearboxClosureLevel(semantic, Boolean(field?.exact));
+
+  if (closureLevel === "unresolved") return "blocked";
+  if (closureLevel === "exact") return "exact_safe";
+
+  const hasPatternConflict = context?.patternRuleConflict?.field === "gearbox";
+  const hasSemanticConflict = Boolean(semantic?.hasConflict);
+  const transmissionType = String(
+    semantic?.transmissionType || semantic?.type || ""
+  ).trim().toLowerCase();
+  const gearboxDrive = normalizeDrivetrain(semantic?.drivetrain);
+  const drivetrainValue = normalizeDrivetrain(context?.drivetrainValue);
+  const drivetrainMismatch =
+    Boolean(gearboxDrive) &&
+    gearboxDrive !== "2WD" &&
+    Boolean(drivetrainValue) &&
+    gearboxDrive !== drivetrainValue;
+
+  if (hasPatternConflict || hasSemanticConflict || drivetrainMismatch) {
+    return "review_required";
+  }
+
+  if (closureLevel === "type") {
+    return "review_required";
+  }
+
+  if (closureLevel === "family") {
+    if (["dsg", "automatic", "manual"].includes(transmissionType)) {
+      return "provisional_safe";
+    }
+    return "review_required";
+  }
+
+  return "blocked";
+}
+
+function enrichGearboxFieldForBusiness(field = {}, context = {}) {
+  const gearboxResolution = buildGearboxResolution(field, context);
+
+  return {
+    ...field,
+    closureLevel: gearboxResolution.closureLevel,
+    businessSuitability: gearboxResolution.businessSuitability,
+    resolvedCode: gearboxResolution.resolvedCode,
+    warnings: uniqueStrings([
+      ...(field?.warnings || []),
+      ...(gearboxResolution.businessSuitability === "provisional_safe" &&
+      gearboxResolution.closureLevel !== "exact"
+        ? ["gearbox_family_level_provisional_closure"]
+        : []),
+      ...(gearboxResolution.businessSuitability === "review_required"
+        ? ["gearbox_review_required_before_final_quote"]
+        : []),
+    ]),
   };
 }
 
@@ -159,7 +203,10 @@ function hasMeaningfulGearboxCompetition(field = {}) {
       candidates: field?.candidates || [],
     });
 
-  if ((semantic?.familyClosed || semantic?.transmissionTypeClosed) && !semantic?.hasConflict) {
+  if (
+    (semantic?.familyClosed || semantic?.transmissionTypeClosed) &&
+    !semantic?.hasConflict
+  ) {
     return false;
   }
 
@@ -232,7 +279,7 @@ function buildCanonicalVehicle({ decoded, fields, manualOverrides = {} }) {
     displacement: decoded?.zapremina || decoded?.engineDisplacement || null,
     powerHp: Number.isFinite(Number(decoded?.snagaKs)) ? Number(decoded.snagaKs) : null,
     gearboxType: normalizeGearboxType(gearboxDisplay, fields?.gearbox?.semantic),
-    gearboxCode: fields?.gearbox?.value || null,
+    gearboxCode: fields?.gearbox?.resolvedCode || fields?.gearbox?.value || null,
     gearbox: gearboxDisplay,
     drivetrain: fields?.drivetrain?.value || null,
     fuelType,
@@ -260,9 +307,8 @@ function buildCanonicalVehicle({ decoded, fields, manualOverrides = {} }) {
 
 function deriveGearboxClosureLevel(semantic = null, exact = false) {
   if (exact) return "exact";
-  if (semantic && (semantic.familyClosed || semantic.transmissionTypeClosed) && !semantic.hasConflict) {
-    return "family";
-  }
+  if (semantic && semantic.familyClosed && !semantic.hasConflict) return "family";
+  if (semantic && semantic.transmissionTypeClosed && !semantic.hasConflict) return "type";
   return "unresolved";
 }
 
@@ -411,6 +457,7 @@ function resolveGearbox(decoded, manualOverrides = {}) {
       field: "gearbox",
       resolved: true,
       value,
+      resolvedCode: value,
       displayValue: semantic.displayLabel || value,
       source: "manual",
       confidence: "confirmed",
@@ -434,6 +481,7 @@ function resolveGearbox(decoded, manualOverrides = {}) {
       field: "gearbox",
       resolved: true,
       value: exactCode,
+      resolvedCode: exactCode,
       displayValue: inferredDisplay || semantic.displayLabel || exactCode,
       source: "exactVin",
       confidence: "exact",
@@ -469,6 +517,7 @@ function resolveGearbox(decoded, manualOverrides = {}) {
       field: "gearbox",
       resolved: true,
       value: selectedCode,
+      resolvedCode: selectedCode,
       displayValue: inferredDisplay || semantic.displayLabel || selectedCode,
       source: decoded?.enrichment?.gearboxSource || "candidate",
       confidence,
@@ -482,7 +531,7 @@ function resolveGearbox(decoded, manualOverrides = {}) {
       ]),
       reason: null,
       semantic,
-      closureLevel: deriveGearboxClosureLevel(semantic, false),
+      closureLevel: deriveGearboxClosureLevel(semantic, candidateCount <= 1),
     };
   }
 
@@ -491,6 +540,7 @@ function resolveGearbox(decoded, manualOverrides = {}) {
       field: "gearbox",
       resolved: false,
       value: null,
+      resolvedCode: null,
       displayValue: inferredDisplay,
       source: "pattern_conflict",
       confidence: "low",
@@ -508,40 +558,55 @@ function resolveGearbox(decoded, manualOverrides = {}) {
     };
   }
 
-if (candidates.length > 0) {
-  const semantic = deriveGearboxClosure({
-    code: inferredDisplay,
-    candidates,
-    allowLabelInference: true,
-    installationDifferentiation,
-  });
+  if (candidates.length > 0) {
+    const normalizedCandidates = uniqueStrings(
+      candidates.map((item) => normalizeCandidateValue(item)).filter(Boolean)
+    );
+    const singleExactCandidate = normalizedCandidates.length === 1 ? normalizedCandidates[0] : null;
 
-  const safelyClosed =
-    (semantic.familyClosed || semantic.transmissionTypeClosed) &&
-    !semantic.hasConflict;
+    const semanticSeed = singleExactCandidate || inferredDisplay || candidates[0] || null;
+    const semantic = deriveGearboxClosure({
+      code: semanticSeed,
+      candidates,
+      allowLabelInference: false,
+      installationDifferentiation,
+    });
 
-  return {
-    field: "gearbox",
-    resolved: safelyClosed, // ✅ KLJUČNA IZMENA
-    value: safelyClosed ? semantic.family : null,
-    displayValue: inferredDisplay,
-    source: "candidate_consensus",
-    confidence: safelyClosed ? "high" : "low",
-    exact: false,
-    candidates,
-    warnings: safelyClosed
-      ? []
-      : ["gearbox_unresolved_from_candidates"],
-    reason: safelyClosed ? null : "gearbox_unresolved",
-    semantic,
-    closureLevel: deriveGearboxClosureLevel(semantic, false),
-  };
-}
+    const safelyClosed =
+      (semantic.familyClosed || semantic.transmissionTypeClosed) &&
+      !semantic.hasConflict;
+
+    const exactFromConsensus = Boolean(singleExactCandidate);
+    const resolvedValue = exactFromConsensus
+      ? singleExactCandidate
+      : safelyClosed
+      ? semantic.family || semantic.transmissionType || null
+      : null;
+
+    return {
+      field: "gearbox",
+      resolved: Boolean(resolvedValue),
+      value: resolvedValue,
+      resolvedCode: exactFromConsensus ? singleExactCandidate : null,
+      displayValue: inferredDisplay || semantic.displayLabel || singleExactCandidate || null,
+      source: "candidate_consensus",
+      confidence: exactFromConsensus ? "exact" : safelyClosed ? "high" : "low",
+      exact: exactFromConsensus,
+      candidates,
+      warnings: resolvedValue
+        ? []
+        : ["gearbox_unresolved_from_candidates"],
+      reason: resolvedValue ? null : "gearbox_unresolved",
+      semantic,
+      closureLevel: deriveGearboxClosureLevel(semantic, exactFromConsensus),
+    };
+  }
 
   return {
     field: "gearbox",
     resolved: false,
     value: null,
+    resolvedCode: null,
     displayValue: inferredDisplay,
     source: "missing",
     confidence: "low",
@@ -633,8 +698,14 @@ function applyInferenceFallback({ decoded, fields, overrides = {} }) {
       ...inferenceCandidates,
     ]);
 
+    const normalizedMergedCandidates = uniqueStrings(
+      mergedCandidates.map((item) => normalizeCandidateValue(item)).filter(Boolean)
+    );
+    const singleExactCandidate =
+      normalizedMergedCandidates.length === 1 ? normalizedMergedCandidates[0] : null;
+
     const semantic = deriveGearboxClosure({
-      code: inference.gearbox.selected,
+      code: singleExactCandidate || inference.gearbox.selected,
       candidates: mergedCandidates,
     });
 
@@ -651,7 +722,9 @@ function applyInferenceFallback({ decoded, fields, overrides = {} }) {
       inference.gearbox.supportRatio >= 0.55;
 
     if (!gearboxBlockedByPatternConflict || allowDominantOverride) {
-      const confidence = allowDominantOverride
+      const confidence = singleExactCandidate
+        ? "exact"
+        : allowDominantOverride
         ? "high"
         : safelyClosed
         ? "medium"
@@ -660,11 +733,12 @@ function applyInferenceFallback({ decoded, fields, overrides = {} }) {
       fields.gearbox = {
         ...fields.gearbox,
         resolved: true,
-        value: inference.gearbox.selected,
+        value: singleExactCandidate || inference.gearbox.selected,
+        resolvedCode: singleExactCandidate || null,
         displayValue: semantic.displayLabel || inference.gearbox.selected,
         source: allowDominantOverride ? "inference_dominant" : "inference",
         confidence,
-        exact: false,
+        exact: Boolean(singleExactCandidate),
         candidates: mergedCandidates,
         warnings: uniqueStrings([
           ...(fields?.gearbox?.warnings || []),
@@ -675,7 +749,7 @@ function applyInferenceFallback({ decoded, fields, overrides = {} }) {
         ]),
         reason: null,
         semantic,
-        closureLevel: deriveGearboxClosureLevel(semantic, false),
+        closureLevel: deriveGearboxClosureLevel(semantic, Boolean(singleExactCandidate)),
         inferenceMeta: {
           field: "gearbox",
           source: inference.source,
@@ -707,20 +781,14 @@ function deriveResolutionStatus(fields) {
     return "unresolved";
   }
 
-  const gearboxResolution = buildGearboxResolution(fields?.gearbox);
-  const gearboxExactish = gearboxResolution.closureLevel === "exact";
-  const gearboxProvisionallyClosed =
-    gearboxResolution.closureLevel === "family" ||
-    gearboxResolution.closureLevel === "type";
-
+  const gearboxSuitability = fields?.gearbox?.businessSuitability || "blocked";
   const drivetrainExactish = isExactish(fields.drivetrain);
 
-  if (gearboxExactish && drivetrainExactish) {
+  if (gearboxSuitability === "exact_safe" && drivetrainExactish) {
     return "fully_resolved";
   }
 
   if (
-    gearboxProvisionallyClosed ||
     fields.gearbox?.resolved ||
     fields.drivetrain?.resolved ||
     fields.gearbox?.displayValue ||
@@ -738,53 +806,42 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
   const modelClosed = Boolean(fields?.model?.resolved) && Boolean(fields?.modelYear?.resolved);
   const engineResolved = Boolean(fields?.engine?.resolved);
   const engineClosed = isStrongResolved(fields?.engine);
-  const gearboxResolved = Boolean(fields?.gearbox?.resolved);
-  const gearboxResolution = buildGearboxResolution(fields?.gearbox);
-
-  const gearboxSemanticallyClosed =
-    gearboxResolution.closureLevel === "family" ||
-    gearboxResolution.closureLevel === "type";
-
-  const gearboxClosed = gearboxResolution.closureLevel === "exact";
   const drivetrainResolved = Boolean(fields?.drivetrain?.resolved);
   const drivetrainClosed = isStrongResolved(fields?.drivetrain);
   const drivetrainConsistent = isDrivetrainConsistent(fields);
   const inferenceUsed = Boolean(usedInference || inferredEngine || inferredGearbox);
-
-  const fullyResolvedWithoutInference =
-    !inferenceUsed &&
-    modelClosed &&
-    engineResolved &&
-    gearboxClosed &&
-    drivetrainResolved &&
-    drivetrainConsistent;
+  const gearboxSuitability = fields?.gearbox?.businessSuitability || "blocked";
+  const gearboxDominant =
+    fields?.gearbox?.source === "inference_dominant" &&
+    getFieldDominanceRatio(fields?.gearbox) >= 0.6;
 
   if (!modelClosed || !engineResolved) {
     return inferenceUsed ? "partial_inferred" : "needs_manual_input";
   }
 
   if (fields?.gearbox?.reason === "gearbox_conflict") {
-    return "partial_inferred";
+    return "needs_manual_input";
   }
+
+  const fullyResolvedWithoutInference =
+    !inferenceUsed &&
+    gearboxSuitability === "exact_safe" &&
+    drivetrainResolved &&
+    drivetrainConsistent;
 
   if (fullyResolvedWithoutInference) {
     return "ready_exact";
   }
 
   const engineInferenceOk = inferredEngine ? isDominantInferenceField(fields?.engine) : engineClosed;
-  const gearboxInferenceOk = inferredGearbox
-    ? isDominantInferenceField(fields?.gearbox)
-    : gearboxResolved && gearboxSemanticallyClosed;
-
   const noCompetingCandidates =
     !hasCompetingCandidates(fields?.engine) &&
     !hasMeaningfulGearboxCompetition(fields?.gearbox);
 
-  if (
-    inferenceUsed &&
+    if (
+    (gearboxSuitability === "provisional_safe" || gearboxDominant) &&
     modelClosed &&
     engineInferenceOk &&
-    gearboxInferenceOk &&
     drivetrainClosed &&
     drivetrainConsistent &&
     noCompetingCandidates
@@ -792,14 +849,16 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
     return "partial_inferred";
   }
 
+  const gearboxSoftMissing =
+    !fields?.gearbox?.resolved &&
+    fields?.gearbox?.reason !== "gearbox_conflict";
+
   if (
-    !inferenceUsed &&
     modelClosed &&
     engineResolved &&
-    gearboxResolved &&
-    gearboxSemanticallyClosed &&
     drivetrainResolved &&
-    drivetrainConsistent
+    drivetrainConsistent &&
+    gearboxSoftMissing
   ) {
     return "partial_inferred";
   }
@@ -809,15 +868,16 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
   }
 
   return "needs_manual_input";
+
 }
 
 function toVehicleStatus({ internalStatus }) {
   return deriveQuoteReadiness(internalStatus);
 }
 
-
 function buildResolutionReason(fields = {}, internalStatus = "unresolved") {
   if (internalStatus === "invalid") return "vin_not_supported";
+  if (fields?.gearbox?.businessSuitability === "review_required") return "gearbox_review_required";
   if (fields?.gearbox?.reason === "gearbox_conflict") return "gearbox_conflict";
   if (fields?.gearbox?.reason) return fields.gearbox.reason;
   if (fields?.engine?.reason) return fields.engine.reason;
@@ -832,15 +892,19 @@ function buildMissingConfirmations(fields, internalStatus) {
     .filter((item) => !item?.resolved)
     .map((item) => item.field);
 
+  const reviewRequiredFields = [fields?.gearbox]
+    .filter((field) => field?.businessSuitability === "review_required")
+    .map((field) => field.field);
+
   if (internalStatus === "partial_inferred") {
     const inferredFields = [fields?.engine, fields?.gearbox, fields?.drivetrain]
       .filter((field) => usesInferenceSource(field))
       .map((field) => field.field);
 
-    return uniqueStrings([...unresolved, ...inferredFields]);
+    return uniqueStrings([...unresolved, ...inferredFields, ...reviewRequiredFields]);
   }
 
-  return unresolved;
+  return uniqueStrings([...unresolved, ...reviewRequiredFields]);
 }
 
 export function resolveVehicleConfiguration({
@@ -888,6 +952,7 @@ export function resolveVehicleConfiguration({
       missingFields: ["model", "modelYear", "engine", "gearbox", "drivetrain"],
       missingConfirmations: ["model", "modelYear", "engine", "gearbox", "drivetrain"],
       warnings: [],
+      gearboxResolution: null,
       canBuildExactPlan: false,
       canBuildProvisionalPlan: false,
       readinessFlags: {
@@ -949,6 +1014,11 @@ export function resolveVehicleConfiguration({
 
   fields = inferenceResult.fields;
 
+  fields.gearbox = enrichGearboxFieldForBusiness(fields.gearbox, {
+    patternRuleConflict: decoded?.enrichment?.patternRuleConflict || null,
+    drivetrainValue: fields?.drivetrain?.value || null,
+  });
+
   const missingFields = Object.values(fields)
     .filter((item) => !item.resolved)
     .map((item) => item.field);
@@ -981,7 +1051,10 @@ export function resolveVehicleConfiguration({
       ? "partial_inferred"
       : baseResolutionStatus;
 
-  const gearboxResolution = buildGearboxResolution(fields.gearbox);
+  const gearboxResolution = buildGearboxResolution(fields.gearbox, {
+    patternRuleConflict: decoded?.enrichment?.patternRuleConflict || null,
+    drivetrainValue: fields?.drivetrain?.value || null,
+  });
 
   const canonicalVehicle = buildCanonicalVehicle({
     decoded: { ...decoded, vin: vin || decoded?.vin },
