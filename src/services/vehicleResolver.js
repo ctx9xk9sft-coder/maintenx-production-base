@@ -3,6 +3,42 @@ import { resolveDrivetrainField } from "./resolution/drivetrainResolver.js";
 import { inferVinConfiguration, getInferenceCandidateList } from "../lib/vinInferenceEngine.js";
 import { buildVehicleStatusContract, deriveQuoteReadiness } from "../contracts/vehicleStatusContract.js";
 
+
+function buildGearboxResolution(field = {}) {
+  const semantic = field?.semantic || null;
+
+  let closureLevel = "unresolved";
+
+  if (field?.exact) {
+    closureLevel = "exact";
+  } else if (semantic?.familyClosed && !semantic?.hasConflict) {
+    closureLevel = "family";
+  } else if (semantic?.transmissionTypeClosed && !semantic?.hasConflict) {
+    closureLevel = "type";
+  }
+
+  let businessSuitability = "blocked";
+
+  if (closureLevel === "exact") {
+    businessSuitability = "exact_safe";
+  } else if (closureLevel === "family") {
+    businessSuitability = "provisional_safe";
+  } else if (closureLevel === "type") {
+    businessSuitability = "review_required";
+  }
+
+  return {
+    exactCode: field?.exact ? field?.value : null,
+    resolvedCode: field?.value || null,
+    resolvedFamily: semantic?.family || null,
+    transmissionType: semantic?.transmissionType || semantic?.type || null,
+    closureLevel,
+    businessSuitability,
+    source: field?.source || "unknown",
+    confidence: field?.confidence || "low",
+  };
+}
+
 function isNonEmptyString(value) {
   return typeof value === "string" && value.trim().length > 0;
 }
@@ -671,11 +707,11 @@ function deriveResolutionStatus(fields) {
     return "unresolved";
   }
 
-  const gearboxExactish =
-    isExactish(fields.gearbox) ||
-    ((fields?.gearbox?.semantic?.familyClosed ||
-      fields?.gearbox?.semantic?.transmissionTypeClosed) &&
-      !fields?.gearbox?.semantic?.hasConflict);
+  const gearboxResolution = buildGearboxResolution(fields?.gearbox);
+  const gearboxExactish = gearboxResolution.closureLevel === "exact";
+  const gearboxProvisionallyClosed =
+    gearboxResolution.closureLevel === "family" ||
+    gearboxResolution.closureLevel === "type";
 
   const drivetrainExactish = isExactish(fields.drivetrain);
 
@@ -684,6 +720,7 @@ function deriveResolutionStatus(fields) {
   }
 
   if (
+    gearboxProvisionallyClosed ||
     fields.gearbox?.resolved ||
     fields.drivetrain?.resolved ||
     fields.gearbox?.displayValue ||
@@ -702,13 +739,13 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
   const engineResolved = Boolean(fields?.engine?.resolved);
   const engineClosed = isStrongResolved(fields?.engine);
   const gearboxResolved = Boolean(fields?.gearbox?.resolved);
+  const gearboxResolution = buildGearboxResolution(fields?.gearbox);
 
   const gearboxSemanticallyClosed =
-    (fields?.gearbox?.semantic?.familyClosed ||
-      fields?.gearbox?.semantic?.transmissionTypeClosed) &&
-    !fields?.gearbox?.semantic?.hasConflict;
+    gearboxResolution.closureLevel === "family" ||
+    gearboxResolution.closureLevel === "type";
 
-  const gearboxClosed = gearboxResolved && gearboxSemanticallyClosed;
+  const gearboxClosed = gearboxResolution.closureLevel === "exact";
   const drivetrainResolved = Boolean(fields?.drivetrain?.resolved);
   const drivetrainClosed = isStrongResolved(fields?.drivetrain);
   const drivetrainConsistent = isDrivetrainConsistent(fields);
@@ -737,7 +774,7 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
   const engineInferenceOk = inferredEngine ? isDominantInferenceField(fields?.engine) : engineClosed;
   const gearboxInferenceOk = inferredGearbox
     ? isDominantInferenceField(fields?.gearbox)
-    : gearboxClosed;
+    : gearboxResolved && gearboxSemanticallyClosed;
 
   const noCompetingCandidates =
     !hasCompetingCandidates(fields?.engine) &&
@@ -751,6 +788,18 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
     drivetrainClosed &&
     drivetrainConsistent &&
     noCompetingCandidates
+  ) {
+    return "partial_inferred";
+  }
+
+  if (
+    !inferenceUsed &&
+    modelClosed &&
+    engineResolved &&
+    gearboxResolved &&
+    gearboxSemanticallyClosed &&
+    drivetrainResolved &&
+    drivetrainConsistent
   ) {
     return "partial_inferred";
   }
@@ -932,6 +981,8 @@ export function resolveVehicleConfiguration({
       ? "partial_inferred"
       : baseResolutionStatus;
 
+  const gearboxResolution = buildGearboxResolution(fields.gearbox);
+
   const canonicalVehicle = buildCanonicalVehicle({
     decoded: { ...decoded, vin: vin || decoded?.vin },
     fields,
@@ -949,6 +1000,7 @@ export function resolveVehicleConfiguration({
     vehicle: canonicalVehicle,
     canonicalVehicle,
     fields,
+    gearboxResolution,
     missingFields,
     missingConfirmations,
     warnings: uniqueStrings([...(validation?.warnings || []), ...manualWarnings]),

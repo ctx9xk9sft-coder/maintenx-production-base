@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-24T12:43:10.104Z",
+  "generatedAt": "2026-03-24T13:51:49.295Z",
   "runtimeModulesUsed": [
     "src/services/vinDecoder.js#decodeSkodaVin",
     "src/services/tcoCalculator.js#calculateMaintenanceValidation",
@@ -27,13 +27,14 @@
       "needs_manual_input": 8
     },
     "canonicalStatus": {
-      "ready_for_planning": 171,
-      "partial_inferred": 48,
-      "needs_manual_input": 8
+      "ready": 171,
+      "provisional": 48,
+      "blocked": 8
     },
-    "operationalReadiness": {
-      "quote_ready": 171,
-      "manual_review_required": 56
+    "quoteReadiness": {
+      "ready": 171,
+      "provisional": 48,
+      "blocked": 8
     },
     "resolutionStatus": {
       "fully_resolved": 154,
@@ -316,7 +317,28 @@
         "count": 1
       }
     ],
-    "blocked": [],
+    "blocked": [
+      {
+        "key": "Enyaq | I | JH9 | NY | 2024 | 1.8 TSI | unknown",
+        "count": 2
+      },
+      {
+        "key": "Kodiaq | II | JW9 | PS | 2025 | EA211 evo | unknown",
+        "count": 2
+      },
+      {
+        "key": "Scala | I | EP6 | NW | 2026 | TSI | unknown",
+        "count": 2
+      },
+      {
+        "key": "Enyaq | I | LH9 | NY | 2024 | 1.8 TSI | unknown",
+        "count": 1
+      },
+      {
+        "key": "Superb | IV | AW0 | NZ | 2026 | unknown | unknown",
+        "count": 1
+      }
+    ],
     "gearboxUnresolved": [
       {
         "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
@@ -341,6 +363,10 @@
     ],
     "weakPricingConfidence": [
       {
+        "key": "Kamiq | I | GR6 | NW | 2026 | EA211 | DQ200",
+        "count": 33
+      },
+      {
         "key": "Scala | I | ER6 | NW | 2026 | EA211 | MQ200",
         "count": 30
       },
@@ -349,8 +375,8 @@
         "count": 22
       },
       {
-        "key": "Kamiq | I | GR6 | NW | 2026 | EA211 | DQ200",
-        "count": 15
+        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
+        "count": 21
       },
       {
         "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | DQ200",
@@ -375,24 +401,20 @@
       {
         "key": "Octavia | IV | AA8 | NX | 2026 | EA211 evo | MQ281",
         "count": 3
-      },
-      {
-        "key": "Scala | I | EP6 | NW | 2026 | TSI | MQ200",
-        "count": 3
       }
     ]
   },
   "pricingObservability": {
     "included": true,
-    "auditedPricedVinCount": 171,
+    "auditedPricedVinCount": 219,
     "missingPriceEventCount": 0,
     "genericEventCount": 0,
-    "familyEventCount": 3224,
+    "familyEventCount": 4540,
     "fallbackLineCount": 0,
     "missingLineCount": 0,
     "pricingConfidenceBuckets": {
-      "medium": 115,
-      "high": 56
+      "medium": 162,
+      "high": 57
     }
   },
   "sampleRecords": [
@@ -405,9 +427,9 @@
       "modelYear": 2023,
       "engineFamily": "EA211-MPI",
       "gearboxFamily": "MQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -483,9 +505,9 @@
       "modelYear": 2024,
       "engineFamily": "EA211-MPI",
       "gearboxFamily": "MQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -561,9 +583,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211",
       "gearboxFamily": "MQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "partially_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -641,9 +663,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -721,9 +743,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -801,9 +823,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -881,9 +903,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -961,9 +983,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -1041,9 +1063,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
@@ -1121,9 +1143,9 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "ready_for_planning",
+      "canonicalStatus": "ready",
       "internalStatus": "ready_exact",
-      "operationalReadiness": "quote_ready",
+      "quoteReadiness": "ready",
       "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
