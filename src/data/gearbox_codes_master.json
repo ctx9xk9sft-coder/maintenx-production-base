@@ -1,0 +1,1273 @@
+{
+  "G0K": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual transmission (MQ281; PR 0ED)",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "G1C": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG transmission (DQ200; PR 0EG)",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "QTS": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": null,
+    "description": "G0C",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "SBV": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "SHA": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "SND": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0C",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "TAH": {
+    "family": "DQ500",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "TCV": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TDB": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": null,
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "TFQ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TFR": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TFU": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TJL": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TJZ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TKD": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TKK": {
+    "family": "MQ250",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "TKN": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": null,
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "TKQ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TKV": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "manual transmission (MQ200); PR G01",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "TLN": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TNY": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "DSG transmission (DQ381); PR G09",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "TUK": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "TUL": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TUN": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TUR": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TVR": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TWE": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TWH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TYB": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TYP": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "TZH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UAH": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": null,
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "UAW": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": null,
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "UCE": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "UDC": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "UEL": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "UET": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "manual transmission (MQ281); PR G02",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UEU": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UEV": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UFC": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "5-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UFH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UFJ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UFK": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UHC": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "manual transmission (MQ200); PR G01",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UHX": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UHY": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UJA": {
+    "family": "MQ250",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UJB": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UKC": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "ULR": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "ULV": {
+    "family": "MQ350",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "ULW": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UPH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UQU": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "URG": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "URJ": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "URK": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G09",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "URP": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "URR": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "URX": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "URZ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "USA": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG wet clutch",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "USE": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "USF": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "USM": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "manual transmission (MQ200); PR G01",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "USN": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "USX": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UTV": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UUF": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "UVN": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UVP": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": null,
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "UWS": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UWT": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UXA": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UXC": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G01",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "UYS": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UYV": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G01",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "UZU": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "UZW": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VCE": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VCF": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VCH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "FWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VCJ": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VCN": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0K",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VCQ": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G02",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VCR": {
+    "family": "MQ281",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VCS": {
+    "family": "MQ281",
+    "type": "Manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual transmission",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "VCW": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG wet clutch",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "VCZ": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "VDA": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VDL": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VDY": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "VEA": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "VEB": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "VEL": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "VGF": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VGR": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "manual transmission (MQ200); PR G01",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VGS": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "6-speed manual (GA)",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VGV": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "G0C",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VGW": {
+    "family": "MQ200",
+    "type": "manual",
+    "drivetrain": "FWD",
+    "description": "5-speed manual",
+    "serviceRequired": false,
+    "clutchType": null
+  },
+  "VHB": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VHE": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VHH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "VHQ": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "VSU": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "VSY": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WAJ": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WAL": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G01",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WBP": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WBQ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WBR": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WBS": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WBT": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WBW": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WDD": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WFN": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WFQ": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WFR": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG wet clutch",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WFT": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WFU": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WFW": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WGA": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WGH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WGJ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WGK": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WGQ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WGS": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G02",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WJB": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WJN": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WJQ": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG wet clutch",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WJT": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WJU": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WJV": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WJW": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "DSG transmission (DQ381); PR G06",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WJX": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG wet clutch",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WKA": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WKE": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WKH": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WKJ": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WKK": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WKW": {
+    "family": "DQ381",
+    "type": "dsg",
+    "drivetrain": "AWD",
+    "description": "G1D",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WLR": {
+    "family": null,
+    "type": null,
+    "drivetrain": "AWD",
+    "description": "missing_real_data",
+    "serviceRequired": false,
+    "clutchType": null,
+    "dataStatus": "missing_real_data"
+  },
+  "WPX": {
+    "family": "DQ400",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "6-speed DSG wet clutch (hybrid)",
+    "serviceRequired": true,
+    "clutchType": "wet"
+  },
+  "WPY": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WPZ": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": null,
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WQA": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WQE": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G1C",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WQF": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WSC": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "G01",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  },
+  "WSD": {
+    "family": "DQ200",
+    "type": "dsg",
+    "drivetrain": "FWD",
+    "description": "7-speed DSG dry clutch",
+    "serviceRequired": false,
+    "clutchType": "dry"
+  }
+}

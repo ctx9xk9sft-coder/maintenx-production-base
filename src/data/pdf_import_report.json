@@ -1,0 +1,110 @@
+{
+  "scannedAt": "2026-03-23T21:27:03.616Z",
+  "inputRoot": "./data_sources",
+  "totalPdfFiles": 21,
+  "created": [],
+  "updated": [
+    {
+      "sourceFile": "TMBAR8NX0TM032653.pdf",
+      "vin": "TMBAR8NX0TM032653"
+    },
+    {
+      "sourceFile": "TMBAR8NX3TM032100.pdf",
+      "vin": "TMBAR8NX3TM032100"
+    },
+    {
+      "sourceFile": "TMBAR8NX3TM033585.pdf",
+      "vin": "TMBAR8NX3TM033585"
+    },
+    {
+      "sourceFile": "TMBAR8NX6TM031510.pdf",
+      "vin": "TMBAR8NX6TM031510"
+    },
+    {
+      "sourceFile": "TMBAR8NX7TM033458.pdf",
+      "vin": "TMBAR8NX7TM033458"
+    },
+    {
+      "sourceFile": "TMBAR8NX8TM011355.pdf",
+      "vin": "TMBAR8NX8TM011355"
+    },
+    {
+      "sourceFile": "TMBAR8NX8TM031119.pdf",
+      "vin": "TMBAR8NX8TM031119"
+    },
+    {
+      "sourceFile": "TMBAR8NX9TM031615.pdf",
+      "vin": "TMBAR8NX9TM031615"
+    },
+    {
+      "sourceFile": "TMBEP6NW1T3065234.pdf",
+      "vin": "TMBEP6NW1T3065234"
+    },
+    {
+      "sourceFile": "TMBEP6NW5S3045891.pdf",
+      "vin": "TMBEP6NW5S3045891"
+    },
+    {
+      "sourceFile": "TMBEP6NW6T3052334.pdf",
+      "vin": "TMBEP6NW6T3052334"
+    },
+    {
+      "sourceFile": "TMBEP6NW8T3047409.pdf",
+      "vin": "TMBEP6NW8T3047409"
+    },
+    {
+      "sourceFile": "TMBEP6NW9R3099057.pdf",
+      "vin": "TMBEP6NW9R3099057"
+    },
+    {
+      "sourceFile": "TMBGK6NW2T3083863.pdf",
+      "vin": "TMBGK6NW2T3083863"
+    },
+    {
+      "sourceFile": "TMBGK6NW3T3082821.pdf",
+      "vin": "TMBGK6NW3T3082821"
+    },
+    {
+      "sourceFile": "TMBGR6NW0T3077409.pdf",
+      "vin": "TMBGR6NW0T3077409"
+    },
+    {
+      "sourceFile": "TMBGR6NW1T3045343.pdf",
+      "vin": "TMBGR6NW1T3045343"
+    },
+    {
+      "sourceFile": "TMBGR6NW4R3081925.pdf",
+      "vin": "TMBGR6NW4R3081925"
+    },
+    {
+      "sourceFile": "TMBGR6NW5T3056331.pdf",
+      "vin": "TMBGR6NW5T3056331"
+    },
+    {
+      "sourceFile": "TMBGR6NW7T3056542.pdf",
+      "vin": "TMBGR6NW7T3056542"
+    },
+    {
+      "sourceFile": "TMBGR6NW8T3056226.pdf",
+      "vin": "TMBGR6NW8T3056226"
+    }
+  ],
+  "failed": [],
+  "engineOverviewExtracted": [],
+  "oilSpecExtracted": [],
+  "summary": {
+    "dataset": {
+      "beforeRows": 314,
+      "afterRows": 314,
+      "createdCount": 0,
+      "updatedCount": 21,
+      "failedCount": 0,
+      "backupPath": "./src/data/vin_training_dataset.backup-20260323-222704.json"
+    },
+    "engineMaster": {
+      "updatedCodes": [],
+      "updatedCount": 0,
+      "backupPath": "./src/data/engine_codes_master.backup-20260323-222704.json"
+    }
+  }
+}

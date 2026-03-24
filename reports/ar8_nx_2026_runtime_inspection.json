@@ -1,0 +1,2422 @@
+[
+  {
+    "vin": "TMBAR8NX0TM019238",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX0TM021491",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX0TM032653",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX1TM023959",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX3TM020254",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX3TM032100",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX3TM033585",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX4TM018481",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX4TM037712",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WSC",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WSC"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WSC",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WSC",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WSC",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WSC"
+          ],
+          "semantic": {
+            "code": "WSC",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": "DSG DQ200 (bez servisa ulja)",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WSC"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX5TM011779",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX5TM034012",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WSC",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WSC"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WSC",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WSC",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WSC",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WSC"
+          ],
+          "semantic": {
+            "code": "WSC",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": "DSG DQ200 (bez servisa ulja)",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WSC"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX6TM031510",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX7TM033458",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX8TM011355",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX8TM015132",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX8TM031119",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX9TM018864",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX9TM021151",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WQF",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WQF"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WQF",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WQF",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WQF",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WQF"
+          ],
+          "semantic": {
+            "code": "WQF",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": null,
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WQF"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX9TM031615",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": "MQ281",
+        "gearboxPrCode": null
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NX9TM032862",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WSC",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WSC"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WSC",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WSC",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WSC",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WSC"
+          ],
+          "semantic": {
+            "code": "WSC",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": "DSG DQ200 (bez servisa ulja)",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WSC"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NXXTM032188",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "WSC",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "WSC"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "WSC",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G01"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "WSC",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "WSC",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "WSC"
+          ],
+          "semantic": {
+            "code": "WSC",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+            "groupLabel": "DSG DQ200 (bez servisa ulja)",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "WSC"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "DSG_DQ200_NO_SERVICE",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  },
+  {
+    "vin": "TMBAR8NXXTM033857",
+    "decoded": {
+      "supported": true,
+      "model": "Octavia IV",
+      "modelYear": 2026,
+      "motorKod": "DXDB",
+      "engineCode": null,
+      "menjac": "Manual",
+      "enrichment": {
+        "selectedEngine": "DXDB",
+        "selectedGearbox": "VCS",
+        "possibleEngineCodes": [
+          "DXDB"
+        ],
+        "possibleGearboxCodes": [
+          "VCS"
+        ],
+        "gearboxTechCandidates": [],
+        "exactVinEngine": "DXDB",
+        "exactVinTransmission": "VCS",
+        "installationDifferentiation": null,
+        "gearboxPrCode": "G0K"
+      }
+    },
+    "resolver": {
+      "internalStatus": "ready_exact",
+      "canonicalStatus": "ready_for_planning",
+      "operationalReadiness": "quote_ready",
+      "reason": null,
+      "inferredEngine": false,
+      "inferredGearbox": false,
+      "vehicle": {
+        "engineCode": "DXDB",
+        "gearboxCode": "VCS",
+        "gearboxType": "dsg",
+        "drivetrain": "FWD"
+      },
+      "fields": {
+        "engine": {
+          "resolved": true,
+          "value": "DXDB",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "DXDB"
+          ],
+          "inferenceMeta": null
+        },
+        "gearbox": {
+          "resolved": true,
+          "value": "VCS",
+          "displayValue": "Manual",
+          "source": "exactVin",
+          "confidence": "exact",
+          "reason": null,
+          "candidates": [
+            "VCS"
+          ],
+          "semantic": {
+            "code": "VCS",
+            "type": "dsg",
+            "transmissionType": "dsg",
+            "family": "DQ200",
+            "drivetrain": "FWD",
+            "serviceRequired": false,
+            "maintenanceGroup": "MANUAL_6",
+            "groupLabel": "Manual 6-stepeni",
+            "displayLabel": "DSG",
+            "candidateCount": 1,
+            "candidateConsensus": {
+              "codes": [
+                "VCS"
+              ],
+              "codeCount": 1,
+              "family": "DQ200",
+              "transmissionType": "dsg",
+              "drivetrain": "FWD",
+              "maintenanceGroup": "MANUAL_6",
+              "familyClosed": true,
+              "transmissionTypeClosed": true,
+              "hasConflict": false,
+              "conflictCount": 0,
+              "conflictingFamilies": [],
+              "conflictingTransmissionTypes": [],
+              "closureSource": "candidate_consensus"
+            },
+            "familyClosed": true,
+            "transmissionTypeClosed": true,
+            "hasConflict": false,
+            "conflictCount": 0,
+            "conflictingFamilies": [],
+            "conflictingTransmissionTypes": [],
+            "closureSource": "code_master"
+          },
+          "installationDifferentiation": null,
+          "gearboxPrCode": null,
+          "inferenceMeta": null
+        },
+        "drivetrain": {
+          "resolved": true,
+          "value": "FWD",
+          "source": "exactVin",
+          "confidence": "high",
+          "reason": null
+        }
+      }
+    }
+  }
+]
