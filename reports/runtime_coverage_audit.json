@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-24T15:07:11.778Z",
+  "generatedAt": "2026-03-25T08:54:14.916Z",
   "runtimeModulesUsed": [
     "src/services/vinDecoder.js#decodeSkodaVin",
     "src/services/tcoCalculator.js#calculateMaintenanceValidation",
@@ -22,23 +22,23 @@
   "totals": {
     "totalVinsAudited": 227,
     "internalStatus": {
-      "needs_manual_input": 103,
-      "ready_exact": 72,
-      "partial_inferred": 52
+      "ready_exact": 140,
+      "partial_inferred": 63,
+      "needs_manual_input": 24
     },
     "canonicalStatus": {
-      "blocked": 103,
-      "ready": 72,
-      "provisional": 52
+      "ready": 140,
+      "provisional": 63,
+      "blocked": 24
     },
     "quoteReadiness": {
-      "blocked": 103,
-      "ready": 72,
-      "provisional": 52
+      "ready": 140,
+      "provisional": 63,
+      "blocked": 24
     },
     "resolutionStatus": {
-      "partial_inferred": 155,
-      "fully_resolved": 72
+      "fully_resolved": 140,
+      "partial_inferred": 87
     }
   },
   "breakdowns": {
@@ -48,15 +48,15 @@
         "needs_manual_input": 1
       },
       "Karoq": {
-        "needs_manual_input": 8
+        "ready_exact": 8
       },
       "Kodiaq": {
-        "partial_inferred": 24,
-        "ready_exact": 2
+        "ready_exact": 16,
+        "partial_inferred": 10
       },
       "Scala": {
-        "needs_manual_input": 35,
-        "ready_exact": 22,
+        "ready_exact": 41,
+        "needs_manual_input": 16,
         "partial_inferred": 6
       },
       "Kamiq": {
@@ -65,32 +65,34 @@
         "needs_manual_input": 3
       },
       "Octavia": {
-        "needs_manual_input": 24,
-        "ready_exact": 24
+        "ready_exact": 24,
+        "partial_inferred": 23,
+        "needs_manual_input": 1
       },
       "Superb": {
-        "needs_manual_input": 29,
-        "partial_inferred": 2,
-        "ready_exact": 1
+        "ready_exact": 28,
+        "partial_inferred": 3,
+        "needs_manual_input": 1
       },
       "Enyaq": {
-        "needs_manual_input": 3
+        "needs_manual_input": 2,
+        "partial_inferred": 1
       }
     },
     "byGeneration": {
       "IV": {
-        "needs_manual_input": 54,
-        "ready_exact": 25,
-        "partial_inferred": 4
+        "ready_exact": 52,
+        "partial_inferred": 28,
+        "needs_manual_input": 3
       },
       "I": {
-        "needs_manual_input": 49,
-        "ready_exact": 45,
-        "partial_inferred": 24
+        "ready_exact": 72,
+        "partial_inferred": 25,
+        "needs_manual_input": 21
       },
       "II": {
-        "partial_inferred": 24,
-        "ready_exact": 2
+        "ready_exact": 16,
+        "partial_inferred": 10
       }
     },
     "byBodyCode": {
@@ -101,14 +103,13 @@
         "needs_manual_input": 1
       },
       "JR7": {
-        "needs_manual_input": 8
+        "ready_exact": 8
       },
       "JW9": {
         "partial_inferred": 2
       },
       "LN9": {
-        "partial_inferred": 14,
-        "ready_exact": 2
+        "ready_exact": 16
       },
       "LN7": {
         "partial_inferred": 8
@@ -119,8 +120,7 @@
         "partial_inferred": 4
       },
       "ER6": {
-        "needs_manual_input": 19,
-        "ready_exact": 11,
+        "ready_exact": 30,
         "partial_inferred": 2
       },
       "GR6": {
@@ -133,36 +133,36 @@
       },
       "AA8": {
         "ready_exact": 4,
-        "needs_manual_input": 2
+        "partial_inferred": 2
       },
       "AR8": {
-        "needs_manual_input": 21,
+        "partial_inferred": 21,
         "ready_exact": 20
       },
       "AG8": {
         "needs_manual_input": 1
       },
       "AH8": {
-        "needs_manual_input": 4,
-        "ready_exact": 1
+        "ready_exact": 5
       },
       "AH0": {
-        "needs_manual_input": 22
+        "ready_exact": 22
       },
       "CR0": {
-        "partial_inferred": 2
+        "partial_inferred": 1,
+        "ready_exact": 1
       },
       "AW0": {
         "needs_manual_input": 1
       },
       "CP0": {
-        "needs_manual_input": 2
+        "partial_inferred": 2
       },
       "JH9": {
         "needs_manual_input": 2
       },
       "LH9": {
-        "needs_manual_input": 1
+        "partial_inferred": 1
       }
     },
     "byPlatformCode": {
@@ -171,28 +171,30 @@
         "needs_manual_input": 1
       },
       "NU": {
-        "needs_manual_input": 8
+        "ready_exact": 8
       },
       "PS": {
-        "partial_inferred": 24,
-        "ready_exact": 2
+        "ready_exact": 16,
+        "partial_inferred": 10
       },
       "NW": {
-        "ready_exact": 45,
-        "needs_manual_input": 38,
-        "partial_inferred": 24
+        "ready_exact": 64,
+        "partial_inferred": 24,
+        "needs_manual_input": 19
       },
       "NX": {
-        "needs_manual_input": 24,
-        "ready_exact": 24
+        "ready_exact": 24,
+        "partial_inferred": 23,
+        "needs_manual_input": 1
       },
       "NZ": {
-        "needs_manual_input": 29,
-        "partial_inferred": 2,
-        "ready_exact": 1
+        "ready_exact": 28,
+        "partial_inferred": 3,
+        "needs_manual_input": 1
       },
       "NY": {
-        "needs_manual_input": 3
+        "needs_manual_input": 2,
+        "partial_inferred": 1
       }
     },
     "byModelYear": {
@@ -201,16 +203,16 @@
       },
       "2024": {
         "partial_inferred": 10,
-        "needs_manual_input": 3,
-        "ready_exact": 1
+        "needs_manual_input": 2,
+        "ready_exact": 2
       },
       "2025": {
         "partial_inferred": 9
       },
       "2026": {
-        "needs_manual_input": 100,
-        "ready_exact": 71,
-        "partial_inferred": 32
+        "ready_exact": 138,
+        "partial_inferred": 43,
+        "needs_manual_input": 22
       }
     },
     "byEngineFamily": {
@@ -218,19 +220,19 @@
         "partial_inferred": 2
       },
       "EA211": {
-        "needs_manual_input": 36,
-        "ready_exact": 32,
-        "partial_inferred": 21
+        "ready_exact": 51,
+        "partial_inferred": 21,
+        "needs_manual_input": 17
       },
       "EA211 evo": {
-        "needs_manual_input": 34,
-        "ready_exact": 24,
-        "partial_inferred": 2
+        "ready_exact": 32,
+        "partial_inferred": 25,
+        "needs_manual_input": 3
       },
       "EA288": {
-        "needs_manual_input": 27,
-        "partial_inferred": 23,
-        "ready_exact": 3
+        "ready_exact": 44,
+        "partial_inferred": 8,
+        "needs_manual_input": 1
       },
       "TSI": {
         "ready_exact": 13
@@ -240,30 +242,31 @@
         "needs_manual_input": 1
       },
       "EA888 evo4": {
-        "needs_manual_input": 2
+        "partial_inferred": 2
       },
       "1.8 TSI": {
-        "needs_manual_input": 3
+        "needs_manual_input": 2,
+        "partial_inferred": 1
       }
     },
     "byGearboxFamily": {
       "MQ200": {
-        "needs_manual_input": 36,
-        "ready_exact": 21,
+        "ready_exact": 40,
+        "needs_manual_input": 17,
         "partial_inferred": 8
       },
       "DQ200": {
-        "ready_exact": 34,
+        "ready_exact": 42,
         "partial_inferred": 18,
-        "needs_manual_input": 11
+        "needs_manual_input": 3
       },
       "DQ381": {
-        "needs_manual_input": 26,
-        "partial_inferred": 26,
-        "ready_exact": 3
+        "ready_exact": 44,
+        "partial_inferred": 11
       },
       "unknown": {
-        "needs_manual_input": 29,
+        "partial_inferred": 26,
+        "needs_manual_input": 3,
         "ready_exact": 2
       },
       "MQ281": {
@@ -275,12 +278,12 @@
   "topClusters": {
     "partialInferred": [
       {
-        "key": "Kamiq | I | GR6 | NW | 2026 | EA211 | DQ200",
-        "count": 18
+        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
+        "count": 21
       },
       {
-        "key": "Kodiaq | II | LN9 | PS | 2026 | EA288 | DQ381",
-        "count": 13
+        "key": "Kamiq | I | GR6 | NW | 2026 | EA211 | DQ200",
+        "count": 18
       },
       {
         "key": "Kodiaq | II | LN7 | PS | 2024 | EA288 | DQ381",
@@ -299,46 +302,26 @@
         "count": 2
       },
       {
+        "key": "Octavia | IV | AA8 | NX | 2026 | EA211 evo | unknown",
+        "count": 2
+      },
+      {
         "key": "Scala | I | ER6 | NW | 2024 | EA211 | MQ200",
         "count": 2
       },
       {
-        "key": "Fabia | IV | EE6 | PJ | 2023 | EA211-MPI | MQ200",
-        "count": 1
+        "key": "Superb | IV | CP0 | NZ | 2026 | EA888 evo4 | unknown",
+        "count": 2
       },
       {
-        "key": "Fabia | IV | EE6 | PJ | 2024 | EA211-MPI | MQ200",
-        "count": 1
-      },
-      {
-        "key": "Kodiaq | II | LN9 | PS | 2024 | EA288 | DQ381",
+        "key": "Enyaq | I | LH9 | NY | 2024 | 1.8 TSI | unknown",
         "count": 1
       }
     ],
     "needsManualInput": [
       {
-        "key": "Superb | IV | AH0 | NZ | 2026 | EA288 | DQ381",
-        "count": 22
-      },
-      {
-        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
-        "count": 21
-      },
-      {
-        "key": "Scala | I | ER6 | NW | 2026 | EA211 | MQ200",
-        "count": 19
-      },
-      {
         "key": "Scala | I | EP6 | NW | 2026 | EA211 | MQ200",
         "count": 16
-      },
-      {
-        "key": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200",
-        "count": 8
-      },
-      {
-        "key": "Superb | IV | AH8 | NZ | 2026 | EA288 | DQ381",
-        "count": 4
       },
       {
         "key": "Kamiq | I | GK6 | NW | 2026 | EA211 evo | DQ200",
@@ -349,38 +332,22 @@
         "count": 2
       },
       {
-        "key": "Octavia | IV | AA8 | NX | 2026 | EA211 evo | unknown",
-        "count": 2
+        "key": "Fabia | IV | ER9 | PJ | 2026 | EA211 | MQ200",
+        "count": 1
       },
       {
-        "key": "Superb | IV | CP0 | NZ | 2026 | EA888 evo4 | unknown",
-        "count": 2
+        "key": "Octavia | IV | AG8 | NX | 2026 | EA288 | MQ281",
+        "count": 1
+      },
+      {
+        "key": "Superb | IV | AW0 | NZ | 2026 | unknown | unknown",
+        "count": 1
       }
     ],
     "blocked": [
       {
-        "key": "Superb | IV | AH0 | NZ | 2026 | EA288 | DQ381",
-        "count": 22
-      },
-      {
-        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
-        "count": 21
-      },
-      {
-        "key": "Scala | I | ER6 | NW | 2026 | EA211 | MQ200",
-        "count": 19
-      },
-      {
         "key": "Scala | I | EP6 | NW | 2026 | EA211 | MQ200",
         "count": 16
-      },
-      {
-        "key": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200",
-        "count": 8
-      },
-      {
-        "key": "Superb | IV | AH8 | NZ | 2026 | EA288 | DQ381",
-        "count": 4
       },
       {
         "key": "Kamiq | I | GK6 | NW | 2026 | EA211 evo | DQ200",
@@ -391,12 +358,16 @@
         "count": 2
       },
       {
-        "key": "Octavia | IV | AA8 | NX | 2026 | EA211 evo | unknown",
-        "count": 2
+        "key": "Fabia | IV | ER9 | PJ | 2026 | EA211 | MQ200",
+        "count": 1
       },
       {
-        "key": "Superb | IV | CP0 | NZ | 2026 | EA888 evo4 | unknown",
-        "count": 2
+        "key": "Octavia | IV | AG8 | NX | 2026 | EA288 | MQ281",
+        "count": 1
+      },
+      {
+        "key": "Superb | IV | AW0 | NZ | 2026 | unknown | unknown",
+        "count": 1
       }
     ],
     "gearboxUnresolved": [
@@ -431,16 +402,24 @@
         "count": 33
       },
       {
-        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | DQ200",
-        "count": 11
+        "key": "Scala | I | ER6 | NW | 2026 | EA211 | MQ200",
+        "count": 30
       },
       {
-        "key": "Scala | I | ER6 | NW | 2026 | EA211 | MQ200",
+        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
+        "count": 21
+      },
+      {
+        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | DQ200",
         "count": 11
       },
       {
         "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | MQ281",
         "count": 9
+      },
+      {
+        "key": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200",
+        "count": 8
       },
       {
         "key": "Scala | I | EP6 | NW | 2026 | EA211 | MQ200",
@@ -457,28 +436,20 @@
       {
         "key": "Scala | I | EP6 | NW | 2025 | unknown | MQ200",
         "count": 3
-      },
-      {
-        "key": "Scala | I | EP6 | NW | 2026 | TSI | MQ200",
-        "count": 3
-      },
-      {
-        "key": "Kamiq | I | GK6 | NW | 2026 | TSI | DQ200",
-        "count": 2
       }
     ]
   },
   "pricingObservability": {
     "included": true,
-    "auditedPricedVinCount": 124,
+    "auditedPricedVinCount": 203,
     "missingPriceEventCount": 0,
-    "genericEventCount": 0,
-    "familyEventCount": 2662,
+    "genericEventCount": 28,
+    "familyEventCount": 4122,
     "fallbackLineCount": 0,
     "missingLineCount": 0,
     "pricingConfidenceBuckets": {
-      "medium": 95,
-      "high": 29
+      "medium": 148,
+      "high": 55
     }
   },
   "sampleRecords": [
@@ -692,10 +663,10 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "blocked",
-      "internalStatus": "needs_manual_input",
-      "quoteReadiness": "blocked",
-      "resolutionStatus": "partial_inferred",
+      "canonicalStatus": "ready",
+      "internalStatus": "ready_exact",
+      "quoteReadiness": "ready",
+      "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
       "warnings": [],
@@ -711,14 +682,56 @@
         "transmissionTypeClosed": true,
         "hasConflict": false
       },
-      "pricingObserved": false,
-      "pricingStatus": null,
-      "pricingMeta": null,
-      "pricingConfidenceLevel": null,
-      "pricingConfidenceMetrics": null,
-      "totalPlannedEvents": null,
-      "totalPlannedCost": null,
-      "priceRange": null,
+      "pricingObserved": true,
+      "pricingStatus": "priced",
+      "pricingMeta": {
+        "laborRate": 5500,
+        "oilPricePerLiter": 1800,
+        "tireCategory": "standard",
+        "discounts": {
+          "laborDiscount": 0,
+          "partsDiscount": 0,
+          "oilDiscount": 0
+        },
+        "contractMode": "standard",
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "missingLineCount": 0,
+        "pricingConfidence": "medium",
+        "warnings": [
+          "Korišćen je generički TSI pricing profil."
+        ],
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "pricingConfidenceLevel": "medium",
+      "pricingConfidenceMetrics": {
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "totalPlannedEvents": 28,
+      "totalPlannedCost": 570300,
+      "priceRange": {
+        "min": 553191,
+        "expected": 570300,
+        "max": 598815
+      },
       "clusterKey": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200"
     },
     {
@@ -730,10 +743,10 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "blocked",
-      "internalStatus": "needs_manual_input",
-      "quoteReadiness": "blocked",
-      "resolutionStatus": "partial_inferred",
+      "canonicalStatus": "ready",
+      "internalStatus": "ready_exact",
+      "quoteReadiness": "ready",
+      "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
       "warnings": [],
@@ -749,14 +762,56 @@
         "transmissionTypeClosed": true,
         "hasConflict": false
       },
-      "pricingObserved": false,
-      "pricingStatus": null,
-      "pricingMeta": null,
-      "pricingConfidenceLevel": null,
-      "pricingConfidenceMetrics": null,
-      "totalPlannedEvents": null,
-      "totalPlannedCost": null,
-      "priceRange": null,
+      "pricingObserved": true,
+      "pricingStatus": "priced",
+      "pricingMeta": {
+        "laborRate": 5500,
+        "oilPricePerLiter": 1800,
+        "tireCategory": "standard",
+        "discounts": {
+          "laborDiscount": 0,
+          "partsDiscount": 0,
+          "oilDiscount": 0
+        },
+        "contractMode": "standard",
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "missingLineCount": 0,
+        "pricingConfidence": "medium",
+        "warnings": [
+          "Korišćen je generički TSI pricing profil."
+        ],
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "pricingConfidenceLevel": "medium",
+      "pricingConfidenceMetrics": {
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "totalPlannedEvents": 28,
+      "totalPlannedCost": 570300,
+      "priceRange": {
+        "min": 553191,
+        "expected": 570300,
+        "max": 598815
+      },
       "clusterKey": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200"
     },
     {
@@ -768,10 +823,10 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "blocked",
-      "internalStatus": "needs_manual_input",
-      "quoteReadiness": "blocked",
-      "resolutionStatus": "partial_inferred",
+      "canonicalStatus": "ready",
+      "internalStatus": "ready_exact",
+      "quoteReadiness": "ready",
+      "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
       "warnings": [],
@@ -787,14 +842,56 @@
         "transmissionTypeClosed": true,
         "hasConflict": false
       },
-      "pricingObserved": false,
-      "pricingStatus": null,
-      "pricingMeta": null,
-      "pricingConfidenceLevel": null,
-      "pricingConfidenceMetrics": null,
-      "totalPlannedEvents": null,
-      "totalPlannedCost": null,
-      "priceRange": null,
+      "pricingObserved": true,
+      "pricingStatus": "priced",
+      "pricingMeta": {
+        "laborRate": 5500,
+        "oilPricePerLiter": 1800,
+        "tireCategory": "standard",
+        "discounts": {
+          "laborDiscount": 0,
+          "partsDiscount": 0,
+          "oilDiscount": 0
+        },
+        "contractMode": "standard",
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "missingLineCount": 0,
+        "pricingConfidence": "medium",
+        "warnings": [
+          "Korišćen je generički TSI pricing profil."
+        ],
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "pricingConfidenceLevel": "medium",
+      "pricingConfidenceMetrics": {
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "totalPlannedEvents": 28,
+      "totalPlannedCost": 570300,
+      "priceRange": {
+        "min": 553191,
+        "expected": 570300,
+        "max": 598815
+      },
       "clusterKey": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200"
     },
     {
@@ -806,10 +903,10 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "blocked",
-      "internalStatus": "needs_manual_input",
-      "quoteReadiness": "blocked",
-      "resolutionStatus": "partial_inferred",
+      "canonicalStatus": "ready",
+      "internalStatus": "ready_exact",
+      "quoteReadiness": "ready",
+      "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
       "warnings": [],
@@ -825,14 +922,56 @@
         "transmissionTypeClosed": true,
         "hasConflict": false
       },
-      "pricingObserved": false,
-      "pricingStatus": null,
-      "pricingMeta": null,
-      "pricingConfidenceLevel": null,
-      "pricingConfidenceMetrics": null,
-      "totalPlannedEvents": null,
-      "totalPlannedCost": null,
-      "priceRange": null,
+      "pricingObserved": true,
+      "pricingStatus": "priced",
+      "pricingMeta": {
+        "laborRate": 5500,
+        "oilPricePerLiter": 1800,
+        "tireCategory": "standard",
+        "discounts": {
+          "laborDiscount": 0,
+          "partsDiscount": 0,
+          "oilDiscount": 0
+        },
+        "contractMode": "standard",
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "missingLineCount": 0,
+        "pricingConfidence": "medium",
+        "warnings": [
+          "Korišćen je generički TSI pricing profil."
+        ],
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "pricingConfidenceLevel": "medium",
+      "pricingConfidenceMetrics": {
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "totalPlannedEvents": 28,
+      "totalPlannedCost": 570300,
+      "priceRange": {
+        "min": 553191,
+        "expected": 570300,
+        "max": 598815
+      },
       "clusterKey": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200"
     },
     {
@@ -844,10 +983,10 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "blocked",
-      "internalStatus": "needs_manual_input",
-      "quoteReadiness": "blocked",
-      "resolutionStatus": "partial_inferred",
+      "canonicalStatus": "ready",
+      "internalStatus": "ready_exact",
+      "quoteReadiness": "ready",
+      "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
       "warnings": [],
@@ -863,14 +1002,56 @@
         "transmissionTypeClosed": true,
         "hasConflict": false
       },
-      "pricingObserved": false,
-      "pricingStatus": null,
-      "pricingMeta": null,
-      "pricingConfidenceLevel": null,
-      "pricingConfidenceMetrics": null,
-      "totalPlannedEvents": null,
-      "totalPlannedCost": null,
-      "priceRange": null,
+      "pricingObserved": true,
+      "pricingStatus": "priced",
+      "pricingMeta": {
+        "laborRate": 5500,
+        "oilPricePerLiter": 1800,
+        "tireCategory": "standard",
+        "discounts": {
+          "laborDiscount": 0,
+          "partsDiscount": 0,
+          "oilDiscount": 0
+        },
+        "contractMode": "standard",
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "missingLineCount": 0,
+        "pricingConfidence": "medium",
+        "warnings": [
+          "Korišćen je generički TSI pricing profil."
+        ],
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "pricingConfidenceLevel": "medium",
+      "pricingConfidenceMetrics": {
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "totalPlannedEvents": 28,
+      "totalPlannedCost": 570300,
+      "priceRange": {
+        "min": 553191,
+        "expected": 570300,
+        "max": 598815
+      },
       "clusterKey": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200"
     },
     {
@@ -882,10 +1063,10 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "blocked",
-      "internalStatus": "needs_manual_input",
-      "quoteReadiness": "blocked",
-      "resolutionStatus": "partial_inferred",
+      "canonicalStatus": "ready",
+      "internalStatus": "ready_exact",
+      "quoteReadiness": "ready",
+      "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
       "warnings": [],
@@ -901,14 +1082,56 @@
         "transmissionTypeClosed": true,
         "hasConflict": false
       },
-      "pricingObserved": false,
-      "pricingStatus": null,
-      "pricingMeta": null,
-      "pricingConfidenceLevel": null,
-      "pricingConfidenceMetrics": null,
-      "totalPlannedEvents": null,
-      "totalPlannedCost": null,
-      "priceRange": null,
+      "pricingObserved": true,
+      "pricingStatus": "priced",
+      "pricingMeta": {
+        "laborRate": 5500,
+        "oilPricePerLiter": 1800,
+        "tireCategory": "standard",
+        "discounts": {
+          "laborDiscount": 0,
+          "partsDiscount": 0,
+          "oilDiscount": 0
+        },
+        "contractMode": "standard",
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "missingLineCount": 0,
+        "pricingConfidence": "medium",
+        "warnings": [
+          "Korišćen je generički TSI pricing profil."
+        ],
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "pricingConfidenceLevel": "medium",
+      "pricingConfidenceMetrics": {
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "totalPlannedEvents": 28,
+      "totalPlannedCost": 570300,
+      "priceRange": {
+        "min": 553191,
+        "expected": 570300,
+        "max": 598815
+      },
       "clusterKey": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200"
     },
     {
@@ -920,10 +1143,10 @@
       "modelYear": 2026,
       "engineFamily": "EA211 evo",
       "gearboxFamily": "DQ200",
-      "canonicalStatus": "blocked",
-      "internalStatus": "needs_manual_input",
-      "quoteReadiness": "blocked",
-      "resolutionStatus": "partial_inferred",
+      "canonicalStatus": "ready",
+      "internalStatus": "ready_exact",
+      "quoteReadiness": "ready",
+      "resolutionStatus": "fully_resolved",
       "validationStatus": "ready_for_planning",
       "missingConfirmations": [],
       "warnings": [],
@@ -939,14 +1162,56 @@
         "transmissionTypeClosed": true,
         "hasConflict": false
       },
-      "pricingObserved": false,
-      "pricingStatus": null,
-      "pricingMeta": null,
-      "pricingConfidenceLevel": null,
-      "pricingConfidenceMetrics": null,
-      "totalPlannedEvents": null,
-      "totalPlannedCost": null,
-      "priceRange": null,
+      "pricingObserved": true,
+      "pricingStatus": "priced",
+      "pricingMeta": {
+        "laborRate": 5500,
+        "oilPricePerLiter": 1800,
+        "tireCategory": "standard",
+        "discounts": {
+          "laborDiscount": 0,
+          "partsDiscount": 0,
+          "oilDiscount": 0
+        },
+        "contractMode": "standard",
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "missingLineCount": 0,
+        "pricingConfidence": "medium",
+        "warnings": [
+          "Korišćen je generički TSI pricing profil."
+        ],
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "pricingConfidenceLevel": "medium",
+      "pricingConfidenceMetrics": {
+        "pricingCoveragePercent": 100,
+        "exactEventCount": 0,
+        "familyEventCount": 28,
+        "genericEventCount": 0,
+        "missingPriceEventCount": 0,
+        "fallbackLineCount": 0,
+        "pricingRange": {
+          "min": 553191,
+          "expected": 570300,
+          "max": 598815
+        }
+      },
+      "totalPlannedEvents": 28,
+      "totalPlannedCost": 570300,
+      "priceRange": {
+        "min": 553191,
+        "expected": 570300,
+        "max": 598815
+      },
       "clusterKey": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200"
     }
   ]

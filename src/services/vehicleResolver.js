@@ -820,6 +820,15 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
   }
 
   if (fields?.gearbox?.reason === "gearbox_conflict") {
+    if (
+      modelClosed &&
+      engineResolved &&
+      drivetrainResolved &&
+      drivetrainConsistent
+    ) {
+      return "partial_inferred";
+    }
+
     return "needs_manual_input";
   }
 
@@ -838,7 +847,7 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
     !hasCompetingCandidates(fields?.engine) &&
     !hasMeaningfulGearboxCompetition(fields?.gearbox);
 
-    if (
+  if (
     (gearboxSuitability === "provisional_safe" || gearboxDominant) &&
     modelClosed &&
     engineInferenceOk &&
@@ -868,7 +877,6 @@ function determineInternalStatus({ supported, fields, usedInference, inferredEng
   }
 
   return "needs_manual_input";
-
 }
 
 function toVehicleStatus({ internalStatus }) {
