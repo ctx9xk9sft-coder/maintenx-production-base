@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-25T08:54:14.916Z",
+  "generatedAt": "2026-03-25T10:51:03.493Z",
   "runtimeModulesUsed": [
     "src/services/vinDecoder.js#decodeSkodaVin",
     "src/services/tcoCalculator.js#calculateMaintenanceValidation",
@@ -22,23 +22,23 @@
   "totals": {
     "totalVinsAudited": 227,
     "internalStatus": {
-      "ready_exact": 140,
+      "ready_exact": 156,
       "partial_inferred": 63,
-      "needs_manual_input": 24
+      "needs_manual_input": 8
     },
     "canonicalStatus": {
-      "ready": 140,
+      "ready": 156,
       "provisional": 63,
-      "blocked": 24
+      "blocked": 8
     },
     "quoteReadiness": {
-      "ready": 140,
+      "ready": 156,
       "provisional": 63,
-      "blocked": 24
+      "blocked": 8
     },
     "resolutionStatus": {
-      "fully_resolved": 140,
-      "partial_inferred": 87
+      "fully_resolved": 156,
+      "partial_inferred": 71
     }
   },
   "breakdowns": {
@@ -55,8 +55,7 @@
         "partial_inferred": 10
       },
       "Scala": {
-        "ready_exact": 41,
-        "needs_manual_input": 16,
+        "ready_exact": 57,
         "partial_inferred": 6
       },
       "Kamiq": {
@@ -86,9 +85,9 @@
         "needs_manual_input": 3
       },
       "I": {
-        "ready_exact": 72,
+        "ready_exact": 88,
         "partial_inferred": 25,
-        "needs_manual_input": 21
+        "needs_manual_input": 5
       },
       "II": {
         "ready_exact": 16,
@@ -115,8 +114,7 @@
         "partial_inferred": 8
       },
       "EP6": {
-        "needs_manual_input": 16,
-        "ready_exact": 11,
+        "ready_exact": 27,
         "partial_inferred": 4
       },
       "ER6": {
@@ -178,9 +176,9 @@
         "partial_inferred": 10
       },
       "NW": {
-        "ready_exact": 64,
+        "ready_exact": 80,
         "partial_inferred": 24,
-        "needs_manual_input": 19
+        "needs_manual_input": 3
       },
       "NX": {
         "ready_exact": 24,
@@ -210,9 +208,9 @@
         "partial_inferred": 9
       },
       "2026": {
-        "ready_exact": 138,
+        "ready_exact": 154,
         "partial_inferred": 43,
-        "needs_manual_input": 22
+        "needs_manual_input": 6
       }
     },
     "byEngineFamily": {
@@ -220,12 +218,12 @@
         "partial_inferred": 2
       },
       "EA211": {
-        "ready_exact": 51,
+        "ready_exact": 78,
         "partial_inferred": 21,
-        "needs_manual_input": 17
+        "needs_manual_input": 1
       },
       "EA211 evo": {
-        "ready_exact": 32,
+        "ready_exact": 34,
         "partial_inferred": 25,
         "needs_manual_input": 3
       },
@@ -233,9 +231,6 @@
         "ready_exact": 44,
         "partial_inferred": 8,
         "needs_manual_input": 1
-      },
-      "TSI": {
-        "ready_exact": 13
       },
       "unknown": {
         "partial_inferred": 4,
@@ -251,9 +246,9 @@
     },
     "byGearboxFamily": {
       "MQ200": {
-        "ready_exact": 40,
-        "needs_manual_input": 17,
-        "partial_inferred": 8
+        "ready_exact": 58,
+        "partial_inferred": 8,
+        "needs_manual_input": 1
       },
       "DQ200": {
         "ready_exact": 42,
@@ -264,14 +259,13 @@
         "ready_exact": 44,
         "partial_inferred": 11
       },
-      "unknown": {
-        "partial_inferred": 26,
-        "needs_manual_input": 3,
-        "ready_exact": 2
-      },
       "MQ281": {
         "ready_exact": 12,
         "needs_manual_input": 1
+      },
+      "unknown": {
+        "partial_inferred": 26,
+        "needs_manual_input": 3
       }
     }
   },
@@ -320,10 +314,6 @@
     ],
     "needsManualInput": [
       {
-        "key": "Scala | I | EP6 | NW | 2026 | EA211 | MQ200",
-        "count": 16
-      },
-      {
         "key": "Kamiq | I | GK6 | NW | 2026 | EA211 evo | DQ200",
         "count": 3
       },
@@ -345,10 +335,6 @@
       }
     ],
     "blocked": [
-      {
-        "key": "Scala | I | EP6 | NW | 2026 | EA211 | MQ200",
-        "count": 16
-      },
       {
         "key": "Kamiq | I | GK6 | NW | 2026 | EA211 evo | DQ200",
         "count": 3
@@ -384,10 +370,6 @@
         "count": 2
       },
       {
-        "key": "Scala | I | EP6 | NW | 2026 | TSI | unknown",
-        "count": 2
-      },
-      {
         "key": "Superb | IV | CP0 | NZ | 2026 | EA888 evo4 | unknown",
         "count": 2
       },
@@ -399,11 +381,15 @@
     "weakPricingConfidence": [
       {
         "key": "Kamiq | I | GR6 | NW | 2026 | EA211 | DQ200",
-        "count": 33
+        "count": 38
       },
       {
         "key": "Scala | I | ER6 | NW | 2026 | EA211 | MQ200",
         "count": 30
+      },
+      {
+        "key": "Scala | I | EP6 | NW | 2026 | EA211 | MQ200",
+        "count": 27
       },
       {
         "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
@@ -422,33 +408,29 @@
         "count": 8
       },
       {
-        "key": "Scala | I | EP6 | NW | 2026 | EA211 | MQ200",
-        "count": 6
-      },
-      {
-        "key": "Kamiq | I | GR6 | NW | 2026 | TSI | DQ200",
-        "count": 5
-      },
-      {
         "key": "Octavia | IV | AA8 | NX | 2026 | EA211 evo | MQ281",
         "count": 3
       },
       {
         "key": "Scala | I | EP6 | NW | 2025 | unknown | MQ200",
         "count": 3
+      },
+      {
+        "key": "Kamiq | I | GK6 | NW | 2026 | EA211 evo | DQ200",
+        "count": 2
       }
     ]
   },
   "pricingObservability": {
     "included": true,
-    "auditedPricedVinCount": 203,
+    "auditedPricedVinCount": 219,
     "missingPriceEventCount": 0,
     "genericEventCount": 28,
-    "familyEventCount": 4122,
+    "familyEventCount": 4570,
     "fallbackLineCount": 0,
     "missingLineCount": 0,
     "pricingConfidenceBuckets": {
-      "medium": 148,
+      "medium": 164,
       "high": 55
     }
   },

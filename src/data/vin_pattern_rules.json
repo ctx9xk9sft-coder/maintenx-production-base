@@ -3321,17 +3321,14 @@
     ],
     "engineCodes": [
       "DLAC",
-      "DUSB",
-      "SCKA"
+      "DUSB"
     ],
     "gearboxCode": null,
     "gearboxOptions": [
-      "F9E",
       "UFC",
       "VGW"
     ],
     "gearboxCodes": [
-      "F9E",
       "UFC",
       "VGW"
     ],
@@ -3475,16 +3472,13 @@
           2026
         ],
         "engineCodes": [
-          "DUSB",
-          "SCKA"
+          "DUSB"
         ],
-        "gearboxCode": null,
+        "gearboxCode": "VGW",
         "gearboxOptions": [
-          "F9E",
           "VGW"
         ],
         "gearboxCodes": [
-          "F9E",
           "VGW"
         ],
         "gearboxSemanticTypes": [
@@ -4142,8 +4136,7 @@
     ],
     "engineCodes": [
       "DPCA",
-      "DXDB",
-      "SCKA"
+      "DXDB"
     ],
     "gearboxCode": null,
     "gearboxOptions": [
@@ -4265,8 +4258,7 @@
           2026
         ],
         "engineCodes": [
-          "DXDB",
-          "SCKA"
+          "DXDB"
         ],
         "gearboxCode": null,
         "gearboxOptions": [
@@ -4472,8 +4464,7 @@
     ],
     "engineCodes": [
       "DLAA",
-      "DUSA",
-      "SCKA"
+      "DUSA"
     ],
     "gearboxCode": null,
     "gearboxOptions": [
@@ -4635,8 +4626,7 @@
           2026
         ],
         "engineCodes": [
-          "DUSA",
-          "SCKA"
+          "DUSA"
         ],
         "gearboxCode": null,
         "gearboxOptions": [
