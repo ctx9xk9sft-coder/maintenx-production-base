@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-25T11:00:38.428Z",
+  "generatedAt": "2026-03-25T13:10:08.278Z",
   "runtimeModulesUsed": [
     "src/services/vinDecoder.js#decodeSkodaVin",
     "src/services/tcoCalculator.js#calculateMaintenanceValidation",
@@ -22,23 +22,23 @@
   "totals": {
     "totalVinsAudited": 227,
     "internalStatus": {
-      "ready_exact": 156,
-      "partial_inferred": 63,
+      "ready_exact": 170,
+      "partial_inferred": 49,
       "needs_manual_input": 8
     },
     "canonicalStatus": {
-      "ready": 156,
-      "provisional": 63,
+      "ready": 170,
+      "provisional": 49,
       "blocked": 8
     },
     "quoteReadiness": {
-      "ready": 156,
-      "provisional": 63,
+      "ready": 170,
+      "provisional": 49,
       "blocked": 8
     },
     "resolutionStatus": {
-      "fully_resolved": 156,
-      "partial_inferred": 71
+      "fully_resolved": 170,
+      "partial_inferred": 57
     }
   },
   "breakdowns": {
@@ -64,8 +64,8 @@
         "needs_manual_input": 3
       },
       "Octavia": {
-        "ready_exact": 24,
-        "partial_inferred": 23,
+        "ready_exact": 38,
+        "partial_inferred": 9,
         "needs_manual_input": 1
       },
       "Superb": {
@@ -80,8 +80,8 @@
     },
     "byGeneration": {
       "IV": {
-        "ready_exact": 52,
-        "partial_inferred": 28,
+        "ready_exact": 66,
+        "partial_inferred": 14,
         "needs_manual_input": 3
       },
       "I": {
@@ -134,8 +134,8 @@
         "partial_inferred": 2
       },
       "AR8": {
-        "partial_inferred": 21,
-        "ready_exact": 20
+        "ready_exact": 34,
+        "partial_inferred": 7
       },
       "AG8": {
         "needs_manual_input": 1
@@ -181,8 +181,8 @@
         "needs_manual_input": 3
       },
       "NX": {
-        "ready_exact": 24,
-        "partial_inferred": 23,
+        "ready_exact": 38,
+        "partial_inferred": 9,
         "needs_manual_input": 1
       },
       "NZ": {
@@ -208,8 +208,8 @@
         "partial_inferred": 9
       },
       "2026": {
-        "ready_exact": 154,
-        "partial_inferred": 43,
+        "ready_exact": 168,
+        "partial_inferred": 29,
         "needs_manual_input": 6
       }
     },
@@ -223,8 +223,8 @@
         "needs_manual_input": 1
       },
       "EA211 evo": {
-        "ready_exact": 34,
-        "partial_inferred": 25,
+        "ready_exact": 48,
+        "partial_inferred": 11,
         "needs_manual_input": 3
       },
       "EA288": {
@@ -251,7 +251,7 @@
         "needs_manual_input": 1
       },
       "DQ200": {
-        "ready_exact": 42,
+        "ready_exact": 55,
         "partial_inferred": 18,
         "needs_manual_input": 3
       },
@@ -260,11 +260,11 @@
         "partial_inferred": 11
       },
       "MQ281": {
-        "ready_exact": 12,
+        "ready_exact": 13,
         "needs_manual_input": 1
       },
       "unknown": {
-        "partial_inferred": 26,
+        "partial_inferred": 12,
         "needs_manual_input": 3
       }
     }
@@ -272,12 +272,12 @@
   "topClusters": {
     "partialInferred": [
       {
-        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
-        "count": 21
-      },
-      {
         "key": "Kamiq | I | GR6 | NW | 2026 | EA211 | DQ200",
         "count": 18
+      },
+      {
+        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
+        "count": 7
       },
       {
         "key": "Kodiaq | II | LN7 | PS | 2024 | EA288 | DQ381",
@@ -359,7 +359,7 @@
     "gearboxUnresolved": [
       {
         "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
-        "count": 21
+        "count": 7
       },
       {
         "key": "Enyaq | I | JH9 | NY | 2024 | 1.8 TSI | unknown",
@@ -392,20 +392,20 @@
         "count": 27
       },
       {
-        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
-        "count": 21
-      },
-      {
         "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | DQ200",
-        "count": 11
+        "count": 24
       },
       {
         "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | MQ281",
-        "count": 9
+        "count": 10
       },
       {
         "key": "Karoq | I | JR7 | NU | 2026 | EA211 evo | DQ200",
         "count": 8
+      },
+      {
+        "key": "Octavia | IV | AR8 | NX | 2026 | EA211 evo | unknown",
+        "count": 7
       },
       {
         "key": "Octavia | IV | AA8 | NX | 2026 | EA211 evo | MQ281",

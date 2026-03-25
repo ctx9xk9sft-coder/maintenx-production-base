@@ -1959,7 +1959,7 @@
   "AR8|NX": {
     "bodyCode": "AR8",
     "platformCode": "NX",
-    "sampleCount": 29,
+    "sampleCount": 44,
     "models": [
       "Octavia"
     ],
@@ -2085,7 +2085,7 @@
       "2026": {
         "bodyCode": "AR8",
         "platformCode": "NX",
-        "sampleCount": 22,
+        "sampleCount": 37,
         "models": [
           "Octavia"
         ],

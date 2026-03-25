@@ -336,18 +336,79 @@ function resolveSimpleField({ field, value, source, confidence = "high" }) {
   };
 }
 
+function tryResolveClusterGearboxSplit(decoded, candidates = [], installationDifferentiation = null) {
+  const modelYear = Number(decoded?.modelYear || 0);
+
+  const normalizedCandidates = uniqueStrings(
+    (candidates || []).map((item) => normalizeCandidateValue(item)).filter(Boolean)
+  );
+
+  const hasCandidate = (code) => normalizedCandidates.includes(code);
+
+  // Candidate-based safe fallback for conflicted 2026 clusters.
+  // Resolve only when candidates clearly indicate a single semantic branch.
+  if (modelYear === 2026) {
+    const hasManual = hasCandidate("VCS");
+    const hasDsg = hasCandidate("WQF") || hasCandidate("WSC") || hasCandidate("WQE");
+
+    if (!hasManual && hasDsg) {
+      if (hasCandidate("WQF")) {
+        return {
+          selectedCode: "WQF",
+          source: "cluster_split_candidate_signal",
+          confidence: "medium",
+          exact: false,
+        };
+      }
+
+      if (hasCandidate("WSC")) {
+        return {
+          selectedCode: "WSC",
+          source: "cluster_split_candidate_signal",
+          confidence: "medium",
+          exact: false,
+        };
+      }
+
+      if (hasCandidate("WQE")) {
+        return {
+          selectedCode: "WQE",
+          source: "cluster_split_candidate_signal",
+          confidence: "medium",
+          exact: false,
+        };
+      }
+    }
+
+    if (hasManual && !hasDsg) {
+      return {
+        selectedCode: "VCS",
+        source: "cluster_split_candidate_signal",
+        confidence: "medium",
+        exact: false,
+      };
+    }
+  }
+
+  return null;
+}
+
 function resolveEngine(decoded, manualOverrides = {}) {
   const override = manualOverrides.engine || manualOverrides.engineCode || null;
   const exactCode = decoded?.enrichment?.exactVinMatch?.engineCode || null;
   const selectedCode = decoded?.enrichment?.selectedEngine?.code || null;
 
-  const candidates = uniqueStrings([
-    exactCode,
-    selectedCode,
-    ...(decoded?.enrichment?.possibleEngineCodes || []),
-    ...(decoded?.enrichment?.engineCandidates || []).map((item) => item?.code),
-    decoded?.motorKod,
-  ]);
+  const candidates = uniqueStrings(
+    [
+      exactCode,
+      selectedCode,
+      ...(decoded?.enrichment?.possibleEngineCodes || []),
+      ...(decoded?.enrichment?.engineCandidates || []).map((item) => item?.code),
+      decoded?.motorKod,
+    ]
+      .map(normalizeCandidateValue)
+      .filter(Boolean)
+  );
 
   if (isNonEmptyString(override)) {
     const value = override.trim();
@@ -437,12 +498,16 @@ function resolveGearbox(decoded, manualOverrides = {}) {
     decoded?.enrichment?.installationDifferentiation ||
     null;
 
-  const candidates = uniqueStrings([
-    exactCode,
-    selectedCode,
-    ...(decoded?.enrichment?.possibleGearboxCodes || []),
-    ...(decoded?.enrichment?.gearboxTechCandidates || []),
-  ]);
+  const candidates = uniqueStrings(
+    [
+      exactCode,
+      selectedCode,
+      ...(decoded?.enrichment?.possibleGearboxCodes || []),
+      ...(decoded?.enrichment?.gearboxTechCandidates || []),
+    ]
+      .map(normalizeCandidateValue)
+      .filter(Boolean)
+  );
 
   if (isNonEmptyString(override)) {
     const value = override.trim();
@@ -535,7 +600,37 @@ function resolveGearbox(decoded, manualOverrides = {}) {
     };
   }
 
-  if (hasPatternGearboxConflict) {
+    if (hasPatternGearboxConflict) {
+    const clusterSplitResolution = tryResolveClusterGearboxSplit(
+      decoded,
+      candidates,
+      installationDifferentiation
+    );
+
+    if (clusterSplitResolution?.selectedCode) {
+      const semantic = deriveGearboxClosure({
+        code: clusterSplitResolution.selectedCode,
+        candidates,
+        installationDifferentiation,
+      });
+
+      return {
+        field: "gearbox",
+        resolved: true,
+        value: clusterSplitResolution.selectedCode,
+        resolvedCode: clusterSplitResolution.selectedCode,
+        displayValue: inferredDisplay || semantic.displayLabel || clusterSplitResolution.selectedCode,
+        source: clusterSplitResolution.source,
+        confidence: clusterSplitResolution.confidence,
+        exact: clusterSplitResolution.exact,
+        candidates,
+        warnings: ["gearbox_resolved_via_cluster_split_signal"],
+        reason: null,
+        semantic,
+        closureLevel: deriveGearboxClosureLevel(semantic, false),
+      };
+    }
+
     return {
       field: "gearbox",
       resolved: false,
@@ -559,9 +654,40 @@ function resolveGearbox(decoded, manualOverrides = {}) {
   }
 
   if (candidates.length > 0) {
-    const normalizedCandidates = uniqueStrings(
-      candidates.map((item) => normalizeCandidateValue(item)).filter(Boolean)
-    );
+  const clusterSplit = tryResolveClusterGearboxSplit(
+    decoded,
+    candidates,
+    installationDifferentiation
+  );
+
+  if (clusterSplit?.selectedCode) {
+    const semantic = deriveGearboxClosure({
+      code: clusterSplit.selectedCode,
+      candidates,
+      installationDifferentiation,
+    });
+
+    return {
+      field: "gearbox",
+      resolved: true,
+      value: clusterSplit.selectedCode,
+      resolvedCode: clusterSplit.selectedCode,
+      displayValue: semantic.displayLabel || clusterSplit.selectedCode,
+      source: clusterSplit.source,
+      confidence: clusterSplit.confidence,
+      exact: false,
+      candidates,
+      warnings: ["gearbox_resolved_via_cluster_split_pre_consensus"],
+      reason: null,
+      semantic,
+      closureLevel: deriveGearboxClosureLevel(semantic, false),
+    };
+  }
+
+  const normalizedCandidates = uniqueStrings(
+    candidates.map((item) => normalizeCandidateValue(item)).filter(Boolean)
+  );
+
     const singleExactCandidate = normalizedCandidates.length === 1 ? normalizedCandidates[0] : null;
 
     const semanticSeed = singleExactCandidate || inferredDisplay || candidates[0] || null;
