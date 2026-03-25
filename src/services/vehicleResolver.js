@@ -52,12 +52,34 @@ function deriveGearboxBusinessSuitability(field = {}, context = {}) {
     return "review_required";
   }
 
+
   if (closureLevel === "family") {
-    if (["dsg", "automatic", "manual"].includes(transmissionType)) {
-      return "provisional_safe";
-    }
-    return "review_required";
+  const source = String(field?.source || "").trim().toLowerCase();
+  const family = String(semantic?.family || "").trim().toUpperCase();
+  const transmissionTypeNormalized = String(
+    semantic?.transmissionType || semantic?.type || ""
+  ).trim().toLowerCase();
+
+  const isStrongConsensus =
+    source === "candidate_consensus" &&
+    semantic?.familyClosed === true &&
+    semantic?.transmissionTypeClosed === true &&
+    semantic?.hasConflict === false;
+
+  if (isStrongConsensus) {
+    return "provisional_safe";
   }
+
+  if (family === "DQ200" && transmissionTypeNormalized === "dsg") {
+    return "provisional_safe";
+  }
+
+  if (["dsg", "automatic", "manual"].includes(transmissionTypeNormalized)) {
+    return "provisional_safe";
+  }
+
+  return "review_required";
+}
 
   return "blocked";
 }
@@ -339,14 +361,74 @@ function resolveSimpleField({ field, value, source, confidence = "high" }) {
 function tryResolveClusterGearboxSplit(decoded, candidates = [], installationDifferentiation = null) {
   const modelYear = Number(decoded?.modelYear || 0);
 
+  const salesType =
+    decoded?.enrichment?.exactVinMatch?.salesType ||
+    decoded?.enrichment?.salesType ||
+    decoded?.salesType ||
+    null;
+
   const normalizedCandidates = uniqueStrings(
     (candidates || []).map((item) => normalizeCandidateValue(item)).filter(Boolean)
   );
 
   const hasCandidate = (code) => normalizedCandidates.includes(code);
 
-  // Candidate-based safe fallback for conflicted 2026 clusters.
-  // Resolve only when candidates clearly indicate a single semantic branch.
+  // 1) salesType signal ima prioritet
+  if (modelYear === 2026 && salesType === "PV3DC5") {
+    if (hasCandidate("VCS")) {
+      return {
+        selectedCode: "VCS",
+        source: "sales_type_split",
+        confidence: "high",
+        exact: false,
+      };
+    }
+
+    return {
+      selectedCode: "VCS",
+      source: "sales_type_split",
+      confidence: "medium",
+      exact: false,
+    };
+  }
+
+  if (modelYear === 2026 && salesType === "PV3DCD") {
+    if (hasCandidate("WQF")) {
+      return {
+        selectedCode: "WQF",
+        source: "sales_type_split",
+        confidence: "high",
+        exact: false,
+      };
+    }
+
+    if (hasCandidate("WSC")) {
+      return {
+        selectedCode: "WSC",
+        source: "sales_type_split",
+        confidence: "high",
+        exact: false,
+      };
+    }
+
+    if (hasCandidate("WQE")) {
+      return {
+        selectedCode: "WQE",
+        source: "sales_type_split",
+        confidence: "high",
+        exact: false,
+      };
+    }
+
+    return {
+      selectedCode: "WQF",
+      source: "sales_type_split",
+      confidence: "medium",
+      exact: false,
+    };
+  }
+
+  // 2) fallback po kandidatima
   if (modelYear === 2026) {
     const hasManual = hasCandidate("VCS");
     const hasDsg = hasCandidate("WQF") || hasCandidate("WSC") || hasCandidate("WQE");

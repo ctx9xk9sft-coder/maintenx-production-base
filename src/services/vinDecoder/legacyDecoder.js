@@ -1188,6 +1188,27 @@ function finalizeFromMasters(result) {
 }
 
 function finalizeUiFields(result) {
+  if (!result.bodyCode) {
+    result.bodyCode =
+      result.enrichment?.exactVinMatch?.bodyCode ||
+      result.vin_codes?.body_code ||
+      null;
+  }
+
+  if (!result.platformCode) {
+    result.platformCode =
+      result.enrichment?.exactVinMatch?.platformCode ||
+      result.enrichment?.exactVinMatch?.modelCode ||
+      result.vin_codes?.model_code ||
+      null;
+  }
+
+  if (!result.salesType) {
+    result.salesType =
+      result.enrichment?.exactVinMatch?.salesType ||
+      null;
+  }
+
   result.marka = "Skoda";
   result.model = buildUiModelLabel(result);
   result.motorKod = buildUiMotorCode(result);

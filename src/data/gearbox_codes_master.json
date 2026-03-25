@@ -732,7 +732,7 @@
   },
   "VCS": {
     "family": "MQ281",
-    "type": "Manual",
+    "type": "manual",
     "drivetrain": "FWD",
     "description": "6-speed manual transmission",
     "serviceRequired": false,
