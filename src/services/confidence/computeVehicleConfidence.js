@@ -27,14 +27,13 @@ export function computeVehicleConfidence({ resolvedVehicle = null, decoded = nul
         requiredFieldCount: 3,
         manualOverrideUsed: false,
         internalStatus: "invalid",
-        quoteReadiness: "blocked",
       },
     };
   }
 
   const fields = resolvedVehicle?.fields || {};
   const internalStatus = resolvedVehicle?.internalStatus || "needs_manual_input";
-  const quoteReadiness = resolvedVehicle?.quoteReadiness || "blocked";
+
   const weights = { engine: 0.5, gearbox: 0.3, drivetrain: 0.2 };
   const weightedScore =
     getFieldConfidenceScore(fields.engine, weights.engine) +
@@ -45,33 +44,22 @@ export function computeVehicleConfidence({ resolvedVehicle = null, decoded = nul
   const manualOverrideUsed = hasManualOverrides(resolvedVehicle);
   const warnings = [];
   const blockers = [];
-  const gearboxCandidateCount = (fields.gearbox?.candidates || []).length;
-  const engineCandidateCount = (fields.engine?.candidates || []).length;
-  const drivetrainSource = String(fields.drivetrain?.source || "").toLowerCase();
 
-  if (quoteReadiness === "blocked") {
+  if (internalStatus === "invalid") {
     blockers.push("vehicle_blocked");
-    warnings.push("Tehnički profil vozila je blokiran i zahteva ručnu obradu.");
   }
 
   if (resolvedRequiredFields < 3) {
     blockers.push("missing_required_vehicle_fields");
-    warnings.push("Nedostaju obavezna tehnička polja za potpuno pouzdan rezultat.");
   }
 
   if (manualOverrideUsed) warnings.push("Rezultat koristi ručnu dopunu tehničkih podataka.");
   if (internalStatus === "partial_inferred") warnings.push("Vozilo je provisional i traži potvrdu pre finalne ponude.");
   if (internalStatus === "needs_manual_input") warnings.push("Potrebna je ručna potvrda tehničkog profila vozila.");
-  if (gearboxCandidateCount > 1 && String(fields.gearbox?.confidence || "").toLowerCase() !== "confirmed") warnings.push("Gearbox ostaje delimično ambiguozan; preporučena je dodatna provera.");
-  if (gearboxCandidateCount > 2) warnings.push("Gearbox je izabran iz širokog kandidatskog klastera.");
-  if (engineCandidateCount > 2 && String(fields.engine?.confidence || "").toLowerCase() !== "confirmed") warnings.push("Engine i dalje ima više kandidata nego što je poželjno za visoko poverenje.");
-  if ((fields.drivetrain?.confidence || "").toLowerCase() === "medium") warnings.push("Drivetrain je izveden bez pune potvrde exact VIN putem.");
-  if (drivetrainSource.includes("partial_consensus")) warnings.push("Drivetrain je izveden iz delimičnog gearbox konsenzusa i traži proveru.");
-  if (resolvedVehicle?.warnings?.length) warnings.push(...resolvedVehicle.warnings.map((warning) => `Resolver warning: ${warning}`));
 
   let level = "low";
-  if (quoteReadiness === "ready" && weightedScore >= 0.95 && blockers.length === 0) level = "high";
-  else if (quoteReadiness === "provisional" && weightedScore >= 0.65 && blockers.length === 0) level = "medium";
+  if (internalStatus === "ready_exact" && weightedScore >= 0.95 && blockers.length === 0) level = "high";
+  else if (internalStatus === "partial_inferred" && weightedScore >= 0.6) level = "medium";
   else if (weightedScore >= 0.55 && blockers.length === 0) level = "medium";
 
   return {
@@ -85,7 +73,6 @@ export function computeVehicleConfidence({ resolvedVehicle = null, decoded = nul
       manualOverrideUsed,
       decoderConfidence: decoded?.confidence || null,
       internalStatus,
-      quoteReadiness,
       missingConfirmationsCount: (resolvedVehicle?.missingConfirmations || []).length,
     },
   };
