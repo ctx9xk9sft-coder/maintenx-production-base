@@ -349,15 +349,6 @@ export function useFleetCalculatorController() {
   const missingFields = planningGate?.missingFields || [];
   const warnings = planningGate?.warnings || [];
 
-  const overallStatus = !decoded?.supported
-    ? "blocked"
-    : validation?.status === "invalid"
-    ? "blocked"
-    : resolvedVehicle?.quoteReadiness || "blocked";
-
-  const canBuildExactPlan = Boolean(resolvedVehicle?.canBuildExactPlan);
-  const canBuildProvisionalPlan = Boolean(resolvedVehicle?.canBuildProvisionalPlan);
-
   const finalEngine =
     resolvedVehicle?.fields?.engine?.value || decoded.motorKod || decoded.motor || "-";
   const finalGearbox =
@@ -367,16 +358,6 @@ export function useFleetCalculatorController() {
     "-";
   const finalDrivetrain =
     resolvedVehicle?.fields?.drivetrain?.value || decoded.drivetrain || "-";
-
-  const maintenanceGateMessage = !decoded?.supported
-    ? decoded?.reason || "VIN nije podržan."
-    : !hasPlanningInputs
-    ? "Plan održavanja i cena su blokirani dok ne uneseš validnu kilometražu, trajanje ugovora i tip eksploatacije."
-    : !canGenerateMaintenancePlan
-    ? "Plan održavanja i cena su blokirani dok vozilo ne pređe u READY ili PROVISIONAL stanje."
-    : overallStatus === "provisional"
-    ? "Plan je provisional i mora biti jasno označen kao uslovna ponuda."
-    : null;
 
   const vehicleLabel = `${decoded.marka || "Škoda"} ${decoded.model || "-"}`;
   const exploitationLabel = exploitation?.label || "-";
@@ -394,13 +375,6 @@ export function useFleetCalculatorController() {
       : finalGearbox || "-";
 
   const drivetrainLabel = finalDrivetrain || "-";
-
-  const businessStatusLabel =
-    overallStatus === "ready"
-      ? "Može odmah u ponudu"
-      : overallStatus === "provisional"
-      ? "Može u uslovnu ponudu"
-      : "Ne može bez ručne intervencije";
 
   const totalsDisplay = {
     totalCost: formatRsd(planTotalCost),
@@ -428,13 +402,6 @@ export function useFleetCalculatorController() {
     style: getStatusBadgeStyle(planningGate?.status),
   };
 
-  const overallStatusUi = {
-    label: getStatusLabel(overallStatus),
-    style: getStatusBadgeStyle(overallStatus),
-  };
-
-  const planStatusUi = getPlanStatusUi(canBuildProvisionalPlan, resolvedVehicle?.quoteReadiness || overallStatus);
-
   const vehicleConfidence = useMemo(
     () => computeVehicleConfidence({ resolvedVehicle, decoded }),
     [resolvedVehicle, decoded]
@@ -455,18 +422,46 @@ export function useFleetCalculatorController() {
         vehicleConfidence,
         pricingConfidence,
       }),
-    [
-      resolvedVehicle,
-      vehicleConfidence,
-      pricingConfidence,
-    ]
+    [resolvedVehicle, vehicleConfidence, pricingConfidence]
   );
+
+  const overallStatus = !decoded?.supported
+    ? "blocked"
+    : validation?.status === "invalid"
+    ? "blocked"
+    : quoteReadiness?.status || "blocked";
+
+  const canBuildExactPlan = Boolean(quoteReadiness?.canBuildExactPlan);
+  const canBuildProvisionalPlan = Boolean(quoteReadiness?.canBuildProvisionalPlan);
+
+  const overallStatusUi = {
+    label: getStatusLabel(overallStatus),
+    style: getStatusBadgeStyle(overallStatus),
+  };
+
+  const planStatusUi = getPlanStatusUi(canBuildProvisionalPlan, overallStatus);
 
   const quoteReadinessUi = {
     label: quoteReadiness.label,
-    style:
-      getStatusBadgeStyle(quoteReadiness.status),
+    style: getStatusBadgeStyle(quoteReadiness.status),
   };
+
+  const maintenanceGateMessage = !decoded?.supported
+    ? decoded?.reason || "VIN nije podržan."
+    : !hasPlanningInputs
+    ? "Plan održavanja i cena su blokirani dok ne uneseš validnu kilometražu, trajanje ugovora i tip eksploatacije."
+    : !canGenerateMaintenancePlan
+    ? "Plan održavanja i cena su blokirani dok vozilo ne pređe u READY ili PROVISIONAL stanje."
+    : overallStatus === "provisional"
+    ? "Plan je provisional i mora biti jasno označen kao uslovna ponuda."
+    : null;
+
+  const businessStatusLabel =
+    overallStatus === "ready"
+      ? "Može odmah u ponudu"
+      : overallStatus === "provisional"
+      ? "Može u uslovnu ponudu"
+      : "Ne može bez ručne intervencije";
 
   const explainabilityNotes = [
     ...(maintenancePlan?.meta?.assumptions || []),
