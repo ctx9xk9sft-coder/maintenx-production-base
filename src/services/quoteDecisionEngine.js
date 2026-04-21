@@ -6,7 +6,7 @@ function toArray(value) {
   return Array.isArray(value) ? value : [];
 }
 
-function buildResolutionContract(resolvedVehicle = null) {
+export function buildResolutionContract(resolvedVehicle = null) {
   const fields = resolvedVehicle?.fields || {};
   const gearboxSuitability = fields?.gearbox?.businessSuitability || "blocked";
   const gearboxClosure = fields?.gearbox?.closureLevel || "unresolved";
