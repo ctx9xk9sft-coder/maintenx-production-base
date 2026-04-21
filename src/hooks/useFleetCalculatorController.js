@@ -18,6 +18,7 @@ import {
 import { computeVehicleConfidence } from "../services/confidence/computeVehicleConfidence.js";
 import { computePricingConfidence } from "../services/confidence/computePricingConfidence.js";
 import { computeQuoteReadiness } from "../services/confidence/computeQuoteReadiness.js";
+import { buildResolutionContract } from "../services/quoteDecisionEngine.js";
 
 function getStatusLabel(status) {
   if (status === "ready") return "READY";
@@ -191,6 +192,11 @@ export function useFleetCalculatorController() {
     [decoded, validation, engineOverride, gearboxOverride, drivetrainOverride]
   );
 
+  const resolutionContract = useMemo(
+    () => buildResolutionContract(resolvedVehicle),
+    [resolvedVehicle]
+  );
+
   const resolverMissingConfirmations = resolvedVehicle?.missingConfirmations || [];
 
   const hasPlanningInputs =
@@ -200,7 +206,7 @@ export function useFleetCalculatorController() {
     Boolean(exploitation);
 
   const canGenerateMaintenancePlan =
-    hasPlanningInputs && Boolean(resolvedVehicle?.canBuildProvisionalPlan);
+    hasPlanningInputs && resolutionContract?.maintenanceClosure !== "blocked";
 
   const maintenancePlanBase = useMemo(() => {
     if (!canGenerateMaintenancePlan) return null;
@@ -451,7 +457,7 @@ export function useFleetCalculatorController() {
     : !hasPlanningInputs
     ? "Plan održavanja i cena su blokirani dok ne uneseš validnu kilometražu, trajanje ugovora i tip eksploatacije."
     : !canGenerateMaintenancePlan
-    ? "Plan održavanja i cena su blokirani dok vozilo ne pređe u READY ili PROVISIONAL stanje."
+    ? "Plan održavanja i cena su blokirani dok nije zatvoren maintenance-safe vehicle profil."
     : overallStatus === "provisional"
     ? "Plan je provisional i mora biti jasno označen kao uslovna ponuda."
     : null;
@@ -517,6 +523,7 @@ export function useFleetCalculatorController() {
     annualKm,
     validation,
     resolvedVehicle,
+    resolutionContract,
     resolverMissingConfirmations,
     canGenerateMaintenancePlan,
     maintenancePlan,
