@@ -13,17 +13,72 @@ import FleetOptimizerSection from "./components/dashboard/FleetOptimizerSection.
 import { useFleetCalculatorController } from "./hooks/useFleetCalculatorController.js";
 import { getContracts, saveContract } from "./services/acceptedContractStore.js";
 
+function buildSelectedScenario({
+  scenarioComparisonData,
+  selectedScenarioId,
+  contractMonths,
+  planTotalNonMaintenance,
+  tcoBreakdown,
+  exploitationLabel,
+}) {
+  if (!Array.isArray(scenarioComparisonData) || scenarioComparisonData.length === 0) {
+    return null;
+  }
+
+  const fallbackScenario = scenarioComparisonData[scenarioComparisonData.length - 1];
+  const selected =
+    scenarioComparisonData.find((item) => String(item.km) === String(selectedScenarioId)) ||
+    fallbackScenario;
+
+  if (!selected) return null;
+
+  const maintenanceCost = Number(selected.totalCost || 0);
+  const nonMaintenanceCost = Number(planTotalNonMaintenance || 0);
+  const totalCost = maintenanceCost + nonMaintenanceCost;
+  const plannedKm = Number(selected.km || 0);
+
+  return {
+    scenarioId: String(selected.km),
+    label: `${formatNum(selected.km, 0)} km`,
+    plannedKm,
+    contractMonths,
+    maintenanceCost,
+    nonMaintenanceCost,
+    totalCost,
+    costPerKm: plannedKm > 0 ? totalCost / plannedKm : 0,
+    costPerMonth: contractMonths > 0 ? totalCost / contractMonths : 0,
+    eventCount: Number(selected.eventCount || 0),
+    usageLabel: selected.usageLabel || exploitationLabel || "-",
+    flexInterval: selected.flexInterval || null,
+    maintenanceBreakdown: {
+      service: Number(selected.serviceCost || 0),
+      brakes: Number(selected.brakeCost || 0),
+      tires: Number(selected.tireCost || 0),
+    },
+    tcoBreakdown: {
+      maintenance: maintenanceCost,
+      registration: Number(tcoBreakdown?.registration || 0),
+      insurance: Number(tcoBreakdown?.insurance || 0),
+      leasing: Number(tcoBreakdown?.leasing || 0),
+      administrative: Number(tcoBreakdown?.administrative || 0),
+      extraordinary: Number(tcoBreakdown?.extraordinary || 0),
+      operating: Number(tcoBreakdown?.operating || 0),
+    },
+  };
+}
+
 function buildAcceptedContractSnapshot({
   sessionUser,
   decoded,
   resolvedVehicle,
   maintenancePlan,
   quoteReadiness,
-  plannedKm,
-  contractMonths,
   exploitationLabel,
   tireCategory,
+  selectedScenario,
 }) {
+  const scenario = selectedScenario || null;
+
   return {
     id: `acv_${Date.now()}`,
     acceptedAt: new Date().toISOString(),
@@ -35,16 +90,37 @@ function buildAcceptedContractSnapshot({
     quoteSnapshot: {
       status: quoteReadiness?.status || "blocked",
       label: quoteReadiness?.label || null,
+      selectedScenarioId: scenario?.scenarioId || null,
+      selectedScenarioLabel: scenario?.label || null,
     },
     contractParams: {
-      plannedKm,
-      contractMonths,
+      plannedKm: scenario?.plannedKm || null,
+      contractMonths: scenario?.contractMonths || null,
       exploitationLabel,
       tireCategory,
     },
+    selectedScenario,
     planSnapshot: {
-      totals: maintenancePlan?.totals || null,
-      pricingMeta: maintenancePlan?.pricingMeta || null,
+      totals: {
+        ...(maintenancePlan?.totals || {}),
+        totalCost: Number(scenario?.totalCost || maintenancePlan?.totals?.totalCost || 0),
+        maintenanceTotal: Number(
+          scenario?.maintenanceCost || maintenancePlan?.totals?.maintenanceTotal || 0
+        ),
+        nonMaintenanceTotal: Number(
+          scenario?.nonMaintenanceCost || maintenancePlan?.totals?.nonMaintenanceTotal || 0
+        ),
+        costPerKm: Number(scenario?.costPerKm || maintenancePlan?.totals?.costPerKm || 0),
+        costPerMonth: Number(
+          scenario?.costPerMonth || maintenancePlan?.totals?.costPerMonth || 0
+        ),
+        totalEvents: Number(scenario?.eventCount || maintenancePlan?.totals?.totalEvents || 0),
+      },
+      pricingMeta: {
+        ...(maintenancePlan?.pricingMeta || {}),
+        selectedScenario,
+        tcoBreakdown: scenario?.tcoBreakdown || maintenancePlan?.pricingMeta?.tcoBreakdown || null,
+      },
     },
   };
 }
@@ -99,10 +175,17 @@ function AcceptedContractsList({ acceptedContracts }) {
               </div>
               <div style={styles.acceptedContractMeta}>{contract.vin || "Bez VIN-a"}</div>
               <div style={styles.acceptedContractMeta}>
-                {contract.contractParams?.contractMonths || "-"} mes · {contract.contractParams?.plannedKm || "-"} km
+                {contract.contractParams?.contractMonths || "-"} mes ·{" "}
+                {contract.contractParams?.plannedKm || "-"} km
               </div>
+              {contract.quoteSnapshot?.selectedScenarioLabel ? (
+                <div style={styles.acceptedContractMeta}>
+                  Scenario: {contract.quoteSnapshot.selectedScenarioLabel}
+                </div>
+              ) : null}
               <div style={styles.acceptedContractMeta}>
-                Planirano ukupno: {formatRsd(Number(contract.planSnapshot?.totals?.totalCost || 0))}
+                Planirano ukupno:{" "}
+                {formatRsd(Number(contract.planSnapshot?.totals?.totalCost || 0))}
               </div>
             </div>
           ))}
@@ -164,15 +247,8 @@ export default function App() {
     annualKm,
     resolvedVehicle,
     resolverMissingConfirmations,
-    gate,
-    planningGate,
-    missingFields,
-    warnings,
     canBuildProvisionalPlan,
     maintenancePlan,
-    finalEngine,
-    finalGearbox,
-    finalDrivetrain,
     maintenanceGateMessage,
     vehicleLabel,
     exploitationLabel,
@@ -182,56 +258,101 @@ export default function App() {
     gearboxLabel,
     drivetrainLabel,
     businessStatusLabel,
-    resolverSourceLabels,
-    resolverStatusUi,
-    planningGateUi,
-    overallStatusUi,
-    planStatusUi,
     vehicleConfidence,
     pricingConfidence,
     quoteReadiness,
     quoteReadinessUi,
     explainabilityNotes,
-    getFieldLabel,
     planTotalCost,
+    planTotalMaintenance,
+    planTotalNonMaintenance,
     planTotalService,
     planTotalBrakes,
     planTotalTires,
     planTotalEvents,
     planCostPerKm,
     planCostPerMonth,
+    planTotalLeasing,
+    planTotalInsurance,
     serviceEvents,
     brakeEvents,
     tireEvents,
     scenarioRows,
     scenarioComparisonData,
+    tcoBreakdown,
     EXPLOITATION_PROFILES,
   } = useFleetCalculatorController();
 
   const [acceptedContracts, setAcceptedContracts] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedScenarioId, setSelectedScenarioId] = useState(null);
 
   useEffect(() => {
     setAcceptedContracts(getContracts());
   }, []);
 
+  useEffect(() => {
+    if (!Array.isArray(scenarioComparisonData) || scenarioComparisonData.length === 0) {
+      setSelectedScenarioId(null);
+      return;
+    }
+
+    if (
+      !selectedScenarioId ||
+      !scenarioComparisonData.some((row) => String(row.km) === String(selectedScenarioId))
+    ) {
+      const expectedScenario = scenarioComparisonData.find(
+        (row) => Number(row.km) === Number(plannedKm)
+      );
+      setSelectedScenarioId(
+        String((expectedScenario || scenarioComparisonData[scenarioComparisonData.length - 1]).km)
+      );
+    }
+  }, [scenarioComparisonData, selectedScenarioId, plannedKm]);
+
   const canGoToAnalysis = Boolean(decoded?.supported) && Boolean(maintenancePlan);
-  const canAcceptQuote = Boolean(maintenancePlan) && ["ready", "provisional"].includes(quoteReadiness?.status);
+
+  const selectedScenario = useMemo(
+    () =>
+      buildSelectedScenario({
+        scenarioComparisonData,
+        selectedScenarioId,
+        contractMonths,
+        planTotalNonMaintenance,
+        tcoBreakdown,
+        exploitationLabel,
+      }),
+    [
+      scenarioComparisonData,
+      selectedScenarioId,
+      contractMonths,
+      planTotalNonMaintenance,
+      tcoBreakdown,
+      exploitationLabel,
+    ]
+  );
+
+  const canAcceptQuote =
+    Boolean(maintenancePlan) &&
+    Boolean(selectedScenario) &&
+    ["ready", "provisional"].includes(quoteReadiness?.status);
+
   const latestAcceptedContract = useMemo(() => acceptedContracts[0] || null, [acceptedContracts]);
 
   function handleAcceptQuote() {
     if (!canAcceptQuote) return;
+
     const snapshot = buildAcceptedContractSnapshot({
       sessionUser,
       decoded,
       resolvedVehicle,
       maintenancePlan,
       quoteReadiness,
-      plannedKm,
-      contractMonths,
       exploitationLabel,
       tireCategory,
+      selectedScenario,
     });
+
     saveContract(snapshot);
     setAcceptedContracts(getContracts());
   }
@@ -336,7 +457,9 @@ export default function App() {
             <div>
               <div style={styles.contentCard}>
                 <h2 style={styles.sectionTitle}>Unos i validacija</h2>
-                <div style={styles.muted}>Na ovom koraku pripremaš vozilo, ugovor i assumptions. Tek kada kalkulacija postoji, prelaziš na analizu.</div>
+                <div style={styles.muted}>
+                  Na ovom koraku pripremaš vozilo, ugovor i assumptions. Tek kada kalkulacija postoji, prelaziš na analizu.
+                </div>
                 <div style={styles.kpiRow}>
                   <div style={styles.kpiTile}>
                     <div style={styles.kpiLabel}>VIN status</div>
@@ -374,7 +497,9 @@ export default function App() {
               <div style={styles.contentHeader}>
                 <div>
                   <h2 style={styles.sectionTitle}>Rezultati i analiza</h2>
-                  <div style={styles.muted}>Ovde proveravaš vozilo, troškove, scenarije i odlučuješ da li je opcija spremna za potvrdu.</div>
+                  <div style={styles.muted}>
+                    Ovde proveravaš vozilo, troškove, scenarije i odlučuješ koji scenario postaje zvanični quote baseline.
+                  </div>
                 </div>
                 <div style={styles.headerBadgeWrap}>
                   <span style={styles.darkBadge}>{`Status: ${businessStatusLabel}`}</span>
@@ -423,14 +548,6 @@ export default function App() {
                         <div style={styles.gateLabel}>Pricing confidence</div>
                         <div style={styles.resolverValue}>{String(pricingConfidence?.level || "-").toUpperCase()}</div>
                       </div>
-                      <div style={styles.gateCard}>
-                        <div style={styles.gateLabel}>Pricing coverage</div>
-                        <div style={styles.resolverValue}>
-                          {maintenancePlan?.pricingMeta?.pricingCoveragePercent != null
-                            ? `${formatNum(maintenancePlan.pricingMeta.pricingCoveragePercent, 0)}%`
-                            : "-"}
-                        </div>
-                      </div>
                     </div>
                   </div>
 
@@ -439,7 +556,9 @@ export default function App() {
                       <div style={styles.alertTitle}>Guardrail upozorenja i pretpostavke</div>
                       <div style={styles.warningList}>
                         {explainabilityNotes.slice(0, 6).map((warning, index) => (
-                          <div key={`${warning}-${index}`} style={styles.warningItem}>{warning}</div>
+                          <div key={`${warning}-${index}`} style={styles.warningItem}>
+                            {warning}
+                          </div>
                         ))}
                       </div>
                     </div>
@@ -448,39 +567,113 @@ export default function App() {
               )}
             </div>
 
-            <BusinessDashboard totalCost={planTotalCost} serviceCost={planTotalService} brakeCost={planTotalBrakes} tireCost={planTotalTires} costPerKm={planCostPerKm} costPerMonth={planCostPerMonth} eventCount={planTotalEvents} />
-            <FleetKpiSection totalCost={planTotalCost} contractMonths={contractMonths} plannedKm={plannedKm} serviceEvents={serviceEvents} brakeEvents={brakeEvents} tireEvents={tireEvents} />
-            <CostStructureSection totalCost={planTotalCost} serviceCost={planTotalService} brakeCost={planTotalBrakes} tireCost={planTotalTires} />
+            <BusinessDashboard
+              totalCost={selectedScenario?.totalCost || planTotalCost}
+              maintenanceTotal={selectedScenario?.maintenanceCost || planTotalMaintenance}
+              nonMaintenanceTotal={selectedScenario?.nonMaintenanceCost || planTotalNonMaintenance}
+              serviceCost={planTotalService}
+              brakeCost={planTotalBrakes}
+              tireCost={planTotalTires}
+              leasingCost={selectedScenario?.tcoBreakdown?.leasing || planTotalLeasing || 0}
+              insuranceCost={selectedScenario?.tcoBreakdown?.insurance || planTotalInsurance || 0}
+              costPerKm={selectedScenario?.costPerKm || planCostPerKm}
+              costPerMonth={selectedScenario?.costPerMonth || planCostPerMonth}
+              eventCount={selectedScenario?.eventCount || planTotalEvents}
+            />
+
+            <FleetKpiSection
+              totalCost={selectedScenario?.totalCost || planTotalCost}
+              contractMonths={contractMonths}
+              plannedKm={selectedScenario?.plannedKm || plannedKm}
+              serviceEvents={serviceEvents}
+              brakeEvents={brakeEvents}
+              tireEvents={tireEvents}
+            />
+
+            <CostStructureSection
+              totalCost={selectedScenario?.totalCost || planTotalCost}
+              serviceCost={planTotalService}
+              brakeCost={planTotalBrakes}
+              tireCost={planTotalTires}
+              breakdown={selectedScenario?.tcoBreakdown || tcoBreakdown || null}
+            />
+
             <ScenarioComparisonSection scenarios={scenarioComparisonData} formatRsd={formatRsd} formatNum={formatNum} />
             <FleetOptimizerSection scenarios={scenarioComparisonData} formatRsd={formatRsd} formatNum={formatNum} />
-            <MaintenancePlanSection serviceEvents={serviceEvents} brakeEvents={brakeEvents} tireEvents={tireEvents} totalServiceCost={planTotalService} totalBrakeCost={planTotalBrakes} totalTireCost={planTotalTires} totalCost={planTotalCost} totalEvents={planTotalEvents} showExpertSections={showExpertSections} formatNum={formatNum} formatRsd={formatRsd} />
+
+            <MaintenancePlanSection
+              serviceEvents={serviceEvents}
+              brakeEvents={brakeEvents}
+              tireEvents={tireEvents}
+              totalServiceCost={planTotalService}
+              totalBrakeCost={planTotalBrakes}
+              totalTireCost={planTotalTires}
+              totalCost={selectedScenario?.maintenanceCost || planTotalMaintenance || planTotalCost}
+              totalEvents={selectedScenario?.eventCount || planTotalEvents}
+              showExpertSections={showExpertSections}
+              formatNum={formatNum}
+              formatRsd={formatRsd}
+            />
 
             <div style={styles.contentCard}>
-              <h2 style={styles.sectionTitle}>TCO scenario analysis</h2>
+              <div style={styles.contentHeader}>
+                <div>
+                  <h2 style={styles.sectionTitle}>Scenario selection</h2>
+                  <div style={styles.muted}>
+                    Izaberi scenario koji postaje zvanični quote baseline i ulazi u accepted contract.
+                  </div>
+                </div>
+                {selectedScenario ? <span style={styles.lightBadge}>{`Selected: ${selectedScenario.label}`}</span> : null}
+              </div>
+
               {!canBuildProvisionalPlan ? (
-                <div style={styles.blockedBox}>Plan je blokiran dok se ne dopune obavezni tehnički podaci o vozilu.</div>
+                <div style={styles.blockedBox}>
+                  Plan je blokiran dok se ne dopune obavezni tehnički podaci o vozilu.
+                </div>
               ) : (
                 <div style={styles.tableWrap}>
                   <table style={styles.table}>
                     <thead>
                       <tr>
                         <th style={styles.th}>Scenario</th>
-                        <th style={styles.th}>Profil eksploatacije</th>
-                        <th style={styles.thRight}>Flex interval</th>
-                        <th style={styles.thRight}>Događaji</th>
-                        <th style={styles.thRight}>Ukupno</th>
+                        <th style={styles.thRight}>KM</th>
+                        <th style={styles.thRight}>Maintenance</th>
+                        <th style={styles.thRight}>Non-maintenance</th>
+                        <th style={styles.thRight}>Ukupni TCO</th>
+                        <th style={styles.thRight}>Trošak / mesec</th>
+                        <th style={styles.thRight}>Akcija</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {scenarioRows.map((row) => (
-                        <tr key={row.label}>
-                          <td style={styles.td}>{row.label}</td>
-                          <td style={styles.td}>{row.usageLabel || "-"}</td>
-                          <td style={styles.tdRight}>{formatNum(row.flexInterval, 0)} km</td>
-                          <td style={styles.tdRight}>{formatNum(row.eventCount, 0)}</td>
-                          <td style={styles.tdRight}>{formatRsd(row.totalCost)}</td>
-                        </tr>
-                      ))}
+                      {scenarioComparisonData.map((row) => {
+                        const isSelected = String(row.km) === String(selectedScenarioId);
+                        const maintenanceCost = Number(row.totalCost || 0);
+                        const totalCost = maintenanceCost + Number(planTotalNonMaintenance || 0);
+                        const monthlyCost = contractMonths > 0 ? totalCost / contractMonths : 0;
+
+                        return (
+                          <tr key={row.km} style={isSelected ? styles.selectedScenarioRow : undefined}>
+                            <td style={styles.td}>{formatNum(row.km, 0)} km</td>
+                            <td style={styles.tdRight}>{formatNum(row.km, 0)}</td>
+                            <td style={styles.tdRight}>{formatRsd(maintenanceCost)}</td>
+                            <td style={styles.tdRight}>{formatRsd(planTotalNonMaintenance)}</td>
+                            <td style={styles.tdRight}>{formatRsd(totalCost)}</td>
+                            <td style={styles.tdRight}>{formatRsd(monthlyCost)}</td>
+                            <td style={styles.tdRight}>
+                              <button
+                                type="button"
+                                onClick={() => setSelectedScenarioId(String(row.km))}
+                                style={{
+                                  ...(isSelected ? styles.primaryBtn : styles.secondaryBtn),
+                                  padding: "10px 12px",
+                                }}
+                              >
+                                {isSelected ? "Izabrano" : "Izaberi"}
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -488,8 +681,17 @@ export default function App() {
             </div>
 
             <div style={styles.actionRow}>
-              <button type="button" onClick={() => setCurrentStep(1)} style={styles.secondaryBtn}>Nazad na unos</button>
-              <button type="button" onClick={() => setCurrentStep(3)} style={{ ...styles.primaryBtn, ...(!canGoToAnalysis ? styles.btnDisabled : {}) }} disabled={!canGoToAnalysis}>Izaberi ovu opciju</button>
+              <button type="button" onClick={() => setCurrentStep(1)} style={styles.secondaryBtn}>
+                Nazad na unos
+              </button>
+              <button
+                type="button"
+                onClick={() => setCurrentStep(3)}
+                style={{ ...styles.primaryBtn, ...(!selectedScenario ? styles.btnDisabled : {}) }}
+                disabled={!selectedScenario}
+              >
+                Potvrdi izabrani scenario
+              </button>
             </div>
           </div>
         ) : null}
@@ -500,7 +702,9 @@ export default function App() {
               <div style={styles.contentHeader}>
                 <div>
                   <h2 style={styles.sectionTitle}>Potvrda i prihvatanje</h2>
-                  <div style={styles.muted}>Finalna provera izabrane opcije pre kreiranja prihvaćenog ugovora.</div>
+                  <div style={styles.muted}>
+                    Finalna provera izabranog scenarija pre kreiranja prihvaćenog ugovora.
+                  </div>
                 </div>
                 <div style={styles.headerBadgeWrap}>
                   <span style={styles.darkBadge}>{`Status: ${businessStatusLabel}`}</span>
@@ -511,16 +715,24 @@ export default function App() {
                 <InfoCard label="Vozilo" value={vehicleLabel} />
                 <InfoCard label="Motor / menjač" value={`${engineLabel} / ${gearboxLabel}`} />
                 <InfoCard label="Pogon" value={drivetrainLabel} />
-                <InfoCard label="Kilometraža / trajanje" value={`${formatNum(plannedKm, 0)} km / ${contractMonths} mes`} />
-                <InfoCard label="Tip eksploatacije" value={exploitationLabel} />
+                <InfoCard label="Scenario" value={selectedScenario?.label || "-"} />
+                <InfoCard
+                  label="Kilometraža / trajanje"
+                  value={`${formatNum(selectedScenario?.plannedKm || plannedKm, 0)} km / ${contractMonths} mes`}
+                />
+                <InfoCard label="Tip eksploatacije" value={selectedScenario?.usageLabel || exploitationLabel} />
                 <InfoCard label="Quote readiness" value={quoteReadinessUi.label} />
-                <InfoCard label="Ukupni trošak" value={formatRsd(planTotalCost)} />
-                <InfoCard label="Trošak / km" value={formatRsd(planCostPerKm)} />
-                <InfoCard label="Trošak / mesec" value={formatRsd(planCostPerMonth)} />
+                <InfoCard label="Ukupni trošak" value={formatRsd(selectedScenario?.totalCost || planTotalCost)} />
+                <InfoCard label="Maintenance" value={formatRsd(selectedScenario?.maintenanceCost || 0)} />
+                <InfoCard label="Non-maintenance" value={formatRsd(selectedScenario?.nonMaintenanceCost || 0)} />
+                <InfoCard label="Trošak / km" value={formatRsd(selectedScenario?.costPerKm || planCostPerKm)} />
+                <InfoCard label="Trošak / mesec" value={formatRsd(selectedScenario?.costPerMonth || planCostPerMonth)} />
               </div>
 
               <div style={styles.actionRow}>
-                <button type="button" onClick={() => setCurrentStep(2)} style={styles.secondaryBtn}>Nazad na analizu</button>
+                <button type="button" onClick={() => setCurrentStep(2)} style={styles.secondaryBtn}>
+                  Nazad na analizu
+                </button>
                 <button
                   type="button"
                   onClick={handleAcceptQuote}
@@ -534,8 +746,20 @@ export default function App() {
               {latestAcceptedContract ? (
                 <div style={styles.acceptedInfoBox}>
                   <div style={styles.alertTitle}>Poslednji prihvaćen ugovor</div>
-                  <div style={styles.warningItem}>{latestAcceptedContract.modelLabel} · {latestAcceptedContract.contractParams?.contractMonths || "-"} mes · {latestAcceptedContract.contractParams?.plannedKm || "-"} km</div>
-                  <div style={styles.warningItem}>Planirano ukupno: {formatRsd(Number(latestAcceptedContract.planSnapshot?.totals?.totalCost || 0))}</div>
+                  <div style={styles.warningItem}>
+                    {latestAcceptedContract.modelLabel} ·{" "}
+                    {latestAcceptedContract.contractParams?.contractMonths || "-"} mes ·{" "}
+                    {latestAcceptedContract.contractParams?.plannedKm || "-"} km
+                  </div>
+                  {latestAcceptedContract.quoteSnapshot?.selectedScenarioLabel ? (
+                    <div style={styles.warningItem}>
+                      Scenario: {latestAcceptedContract.quoteSnapshot.selectedScenarioLabel}
+                    </div>
+                  ) : null}
+                  <div style={styles.warningItem}>
+                    Planirano ukupno:{" "}
+                    {formatRsd(Number(latestAcceptedContract.planSnapshot?.totals?.totalCost || 0))}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -575,7 +799,6 @@ const styles = {
   headerBadgeWrap: { display: "flex", gap: 10, alignItems: "center" },
   darkBadge: { background: "#0f172a", color: "#fff", padding: "8px 12px", borderRadius: 999, fontWeight: 700, fontSize: 14 },
   lightBadge: { border: "1px solid #cbd5e1", padding: "8px 12px", borderRadius: 12, fontSize: 14, color: "#334155", background: "#fff" },
-  infoGrid: { display: "grid", gridTemplateColumns: "repeat(4, minmax(180px, 1fr))", gap: 14 },
   confirmGrid: { display: "grid", gridTemplateColumns: "repeat(3, minmax(180px, 1fr))", gap: 14, marginBottom: 18 },
   kpiRow: { display: "grid", gridTemplateColumns: "repeat(3, minmax(160px, 1fr))", gap: 14, marginTop: 18, marginBottom: 18 },
   kpiTile: { border: "1px solid #e2e8f0", borderRadius: 16, padding: 16, background: "#fff" },
@@ -593,22 +816,13 @@ const styles = {
   tdRight: { padding: "14px 10px", borderBottom: "1px solid #f1f5f9", textAlign: "right", fontSize: 16, verticalAlign: "top" },
   contentCardInner: { marginTop: 18, paddingTop: 18, borderTop: "1px solid #e2e8f0" },
   candidateTitle: { fontSize: 18, fontWeight: 700, marginBottom: 12 },
-  candidateList: { display: "grid", gap: 10 },
-  candidateItem: { border: "1px solid #e2e8f0", borderRadius: 14, padding: 14, background: "#f8fafc", fontSize: 16 },
-  gateSection: { marginTop: 18, paddingTop: 18, borderTop: "1px solid #e2e8f0", display: "grid", gap: 14 },
-  resolverSection: { marginTop: 18, paddingTop: 18, borderTop: "1px solid #e2e8f0", display: "grid", gap: 14 },
-  gateTitle: { fontSize: 18, fontWeight: 700 },
-  gateGrid: { display: "grid", gridTemplateColumns: "repeat(4, minmax(160px, 1fr))", gap: 12 },
-  resolverGrid: { display: "grid", gridTemplateColumns: "repeat(4, minmax(160px, 1fr))", gap: 12 },
+  resolverGrid: { display: "grid", gridTemplateColumns: "repeat(3, minmax(160px, 1fr))", gap: 12 },
   gateCard: { border: "1px solid #e2e8f0", borderRadius: 16, padding: 14, background: "#fff" },
   gateLabel: { fontSize: 14, color: "#64748b", marginBottom: 10 },
   gateBadge: { display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: 38, padding: "8px 12px", borderRadius: 999, fontSize: 13, fontWeight: 800 },
   resolverValue: { fontSize: 15, fontWeight: 700, color: "#0f172a" },
-  alertWarning: { border: "1px solid #fcd34d", background: "#fffbeb", borderRadius: 18, padding: 16 },
   alertInfo: { border: "1px solid #cbd5e1", background: "#f8fafc", borderRadius: 18, padding: 16 },
   alertTitle: { fontSize: 16, fontWeight: 700, marginBottom: 10 },
-  tagWrap: { display: "flex", gap: 10, flexWrap: "wrap" },
-  warningTag: { padding: "8px 12px", borderRadius: 999, background: "#fef3c7", color: "#92400e", border: "1px solid #fcd34d", fontSize: 14, fontWeight: 700 },
   warningList: { display: "grid", gap: 8 },
   warningItem: { fontSize: 15, color: "#334155" },
   blockedBox: { border: "1px solid #fca5a5", background: "#fef2f2", color: "#991b1b", borderRadius: 18, padding: 18, fontSize: 16, fontWeight: 700, marginTop: 16 },
@@ -618,4 +832,6 @@ const styles = {
   acceptedContractTitle: { fontSize: 16, fontWeight: 800, color: "#0f172a" },
   acceptedContractBadge: { padding: "6px 10px", borderRadius: 999, background: "#e2e8f0", color: "#334155", fontSize: 12, fontWeight: 800 },
   acceptedContractMeta: { fontSize: 14, color: "#475569", marginTop: 6 },
+  selectedScenarioRow: { background: "#f0fdf4" },
+  acceptedInfoBox: { border: "1px solid #cbd5e1", background: "#f8fafc", borderRadius: 18, padding: 16, marginTop: 16 },
 };
