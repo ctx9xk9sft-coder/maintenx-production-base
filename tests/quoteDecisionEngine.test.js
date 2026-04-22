@@ -4,105 +4,103 @@ import assert from "node:assert/strict";
 import { computeQuoteDecision } from "../src/services/quoteDecisionEngine.js";
 
 function buildResolvedVehicle({
-  quoteReadiness = "ready",
-  internalStatus = "ready_exact",
   supported = true,
   modelResolved = true,
   engineResolved = true,
   drivetrainResolved = true,
-  gearboxSuitability = "exact_safe",
-  gearboxClosure = "family",
   gearboxResolved = true,
-  warnings = [],
+  gearboxSuitability = "exact_safe",
+  closureLevel = "exact",
 } = {}) {
   return {
     supported,
-    quoteReadiness,
-    internalStatus,
-    warnings,
     fields: {
-      model: { field: "model", resolved: modelResolved },
-      modelYear: { field: "modelYear", resolved: modelResolved },
-      engine: { field: "engine", resolved: engineResolved },
-      drivetrain: { field: "drivetrain", resolved: drivetrainResolved },
+      model: { resolved: modelResolved },
+      modelYear: { resolved: modelResolved },
+      engine: { resolved: engineResolved },
+      drivetrain: { resolved: drivetrainResolved },
       gearbox: {
-        field: "gearbox",
         resolved: gearboxResolved,
         businessSuitability: gearboxSuitability,
-        closureLevel: gearboxClosure,
+        closureLevel,
         warnings: [],
       },
     },
   };
 }
 
-test("ready transition follows canonical resolver readiness", () => {
-  const resolvedVehicle = buildResolvedVehicle({
-    quoteReadiness: "ready",
-    internalStatus: "ready_exact",
-  });
-
-  const result = computeQuoteDecision({ resolvedVehicle });
-
-  assert.equal(result.status, "ready");
-  assert.equal(result.canBuildExactPlan, true);
-  assert.equal(result.canBuildProvisionalPlan, true);
-});
-
-test("provisional transition follows canonical resolver readiness", () => {
-  const resolvedVehicle = buildResolvedVehicle({
-    quoteReadiness: "provisional",
-    internalStatus: "partial_inferred",
-  });
-
-  const result = computeQuoteDecision({ resolvedVehicle });
-
-  assert.equal(result.status, "provisional");
-  assert.equal(result.canBuildExactPlan, false);
-  assert.equal(result.canBuildProvisionalPlan, true);
-});
-
-test("blocked transition follows canonical resolver readiness", () => {
-  const resolvedVehicle = buildResolvedVehicle({
-    quoteReadiness: "blocked",
-    internalStatus: "needs_manual_input",
-    modelResolved: false,
-    engineResolved: false,
-    drivetrainResolved: false,
-    gearboxSuitability: "blocked",
-    gearboxResolved: false,
-  });
-
-  const result = computeQuoteDecision({ resolvedVehicle });
-
-  assert.equal(result.status, "blocked");
-  assert.equal(result.canBuildExactPlan, false);
-  assert.equal(result.canBuildProvisionalPlan, false);
-});
-
-test("conflicting pricing signals do not override canonical readiness", () => {
-  const resolvedVehicle = buildResolvedVehicle({
-    quoteReadiness: "ready",
-  });
-
+test("safe closure + high pricing => ready", () => {
   const result = computeQuoteDecision({
-    resolvedVehicle,
+    resolvedVehicle: buildResolvedVehicle(),
+    vehicleConfidence: { level: "high", blockers: [], warnings: [] },
     pricingConfidence: {
-      level: "low",
-      blockers: ["missing_price_events"],
-      warnings: ["fallback_used"],
-      metrics: {
-        pricingCoveragePercent: 80,
-      },
+      level: "high",
+      blockers: [],
+      warnings: [],
+      metrics: { pricingCoveragePercent: 100 },
     },
   });
 
   assert.equal(result.status, "ready");
-  assert.ok(result.blockers.includes("missing_price_events"));
-  assert.ok(result.warnings.includes("pricing_confidence_low"));
+  assert.equal(result.canBuildExactPlan, true);
 });
 
-test("fallback behavior with null inputs defaults to blocked", () => {
+test("safe closure + pricing blockers => provisional", () => {
+  const result = computeQuoteDecision({
+    resolvedVehicle: buildResolvedVehicle(),
+    vehicleConfidence: { level: "high", blockers: [], warnings: [] },
+    pricingConfidence: {
+      level: "low",
+      blockers: ["missing_price_events"],
+      warnings: [],
+      metrics: { pricingCoveragePercent: 70 },
+    },
+  });
+
+  assert.equal(result.status, "provisional");
+});
+
+test("conditional closure => provisional", () => {
+  const result = computeQuoteDecision({
+    resolvedVehicle: buildResolvedVehicle({
+      gearboxSuitability: "family_safe",
+      closureLevel: "family",
+    }),
+    vehicleConfidence: { level: "medium", blockers: [], warnings: [] },
+    pricingConfidence: {
+      level: "high",
+      blockers: [],
+      warnings: [],
+      metrics: { pricingCoveragePercent: 100 },
+    },
+  });
+
+  assert.equal(result.status, "provisional");
+});
+
+test("resolution blockers => blocked", () => {
+  const result = computeQuoteDecision({
+    resolvedVehicle: buildResolvedVehicle({
+      modelResolved: false,
+      engineResolved: false,
+    }),
+    vehicleConfidence: {
+      level: "low",
+      blockers: ["missing_engine"],
+      warnings: [],
+    },
+    pricingConfidence: {
+      level: "high",
+      blockers: [],
+      warnings: [],
+      metrics: { pricingCoveragePercent: 100 },
+    },
+  });
+
+  assert.equal(result.status, "blocked");
+});
+
+test("null inputs => blocked", () => {
   const result = computeQuoteDecision({
     resolvedVehicle: null,
     vehicleConfidence: null,
@@ -112,53 +110,22 @@ test("fallback behavior with null inputs defaults to blocked", () => {
   assert.equal(result.status, "blocked");
 });
 
-test("undefined inputs are handled safely", () => {
-  const result = computeQuoteDecision();
-
-  assert.equal(result.status, "blocked");
-});
-
-test("internalStatus fallback works when quoteReadiness is missing", () => {
-  const resolvedVehicle = buildResolvedVehicle({
-    quoteReadiness: null,
-    internalStatus: "partial_inferred",
-  });
-
+test("warning/blocker merge remains unique", () => {
   const result = computeQuoteDecision({
-    resolvedVehicle,
-  });
-
-  assert.equal(result.status, "provisional");
-});
-
-test("warning and blocker merging remains unique", () => {
-  const resolvedVehicle = buildResolvedVehicle({
-    quoteReadiness: "provisional",
-  });
-
-  const result = computeQuoteDecision({
-    resolvedVehicle,
+    resolvedVehicle: buildResolvedVehicle(),
     vehicleConfidence: {
-      warnings: ["vehicle_warn", "vehicle_warn"],
+      level: "medium",
       blockers: ["vehicle_blocker", "vehicle_blocker"],
+      warnings: ["vehicle_warning", "vehicle_warning"],
     },
     pricingConfidence: {
       level: "low",
-      warnings: ["pricing_warn", "pricing_warn"],
       blockers: ["pricing_blocker", "pricing_blocker"],
-      metrics: {
-        pricingCoveragePercent: 90,
-      },
+      warnings: ["pricing_warning", "pricing_warning"],
+      metrics: { pricingCoveragePercent: 85 },
     },
   });
 
-  assert.equal(result.status, "provisional");
-  assert.equal(
-    result.blockers.filter((x) => x === "vehicle_blocker").length,
-    1
-  );
-  assert.equal(
-    result.blockers.filter((x) => x === "pricing_blocker").length,
-    1
-  );
+  assert.equal(result.blockers.filter((x) => x === "vehicle_blocker").length, 1);
+  assert.equal(result.blockers.filter((x) => x === "pricing_blocker").length, 1);
 });
