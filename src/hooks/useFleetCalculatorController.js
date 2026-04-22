@@ -19,6 +19,7 @@ import { computeVehicleConfidence } from "../services/confidence/computeVehicleC
 import { computePricingConfidence } from "../services/confidence/computePricingConfidence.js";
 import { computeQuoteReadiness } from "../services/confidence/computeQuoteReadiness.js";
 import { buildResolutionContract } from "../contracts/resolutionContract.js";
+import { createTcoCostInput, TCO_COST_CATEGORY, TCO_COST_FREQUENCY } from "../domain/TcoCostInput.js";
 
 function getStatusLabel(status) {
   if (status === "ready") return "READY";
@@ -139,6 +140,60 @@ function resolveBusinessGearboxLabel(gearboxCode) {
   return gearboxCode;
 }
 
+function buildAdditionalTcoCosts({
+  registrationAnnual,
+  insuranceAnnual,
+  leasingMonthly,
+  adminMonthly,
+  extraordinaryReserve,
+  operatingMonthly,
+}) {
+  return [
+    createTcoCostInput({
+      category: TCO_COST_CATEGORY.REGISTRATION,
+      label: "Registracija",
+      amount: registrationAnnual,
+      frequency: TCO_COST_FREQUENCY.ANNUAL,
+      source: "manual",
+    }),
+    createTcoCostInput({
+      category: TCO_COST_CATEGORY.INSURANCE,
+      label: "Osiguranje",
+      amount: insuranceAnnual,
+      frequency: TCO_COST_FREQUENCY.ANNUAL,
+      source: "manual",
+    }),
+    createTcoCostInput({
+      category: TCO_COST_CATEGORY.LEASING,
+      label: "Leasing / rata",
+      amount: leasingMonthly,
+      frequency: TCO_COST_FREQUENCY.MONTHLY,
+      source: "manual",
+    }),
+    createTcoCostInput({
+      category: TCO_COST_CATEGORY.ADMINISTRATIVE,
+      label: "Administrativni trošak",
+      amount: adminMonthly,
+      frequency: TCO_COST_FREQUENCY.MONTHLY,
+      source: "manual",
+    }),
+    createTcoCostInput({
+      category: TCO_COST_CATEGORY.EXTRAORDINARY,
+      label: "Vanredni troškovi / rezerva",
+      amount: extraordinaryReserve,
+      frequency: TCO_COST_FREQUENCY.CONTRACT_TOTAL,
+      source: "manual",
+    }),
+    createTcoCostInput({
+      category: TCO_COST_CATEGORY.OPERATING,
+      label: "Ostali operativni troškovi",
+      amount: operatingMonthly,
+      frequency: TCO_COST_FREQUENCY.MONTHLY,
+      source: "manual",
+    }),
+  ];
+}
+
 export function useFleetCalculatorController() {
   const [sessionUser] = useState({
     displayName: "Admin demo",
@@ -161,6 +216,12 @@ export function useFleetCalculatorController() {
   const [engineOverride, setEngineOverride] = useState("");
   const [gearboxOverride, setGearboxOverride] = useState("");
   const [drivetrainOverride, setDrivetrainOverride] = useState("");
+  const [registrationAnnual, setRegistrationAnnual] = useState(0);
+  const [insuranceAnnual, setInsuranceAnnual] = useState(0);
+  const [leasingMonthly, setLeasingMonthly] = useState(0);
+  const [adminMonthly, setAdminMonthly] = useState(0);
+  const [extraordinaryReserve, setExtraordinaryReserve] = useState(0);
+  const [operatingMonthly, setOperatingMonthly] = useState(0);
 
   const decoded = useMemo(() => decodeSkodaVin(vin), [vin]);
   const exploitation = EXPLOITATION_PROFILES[exploitationType];
@@ -195,6 +256,26 @@ export function useFleetCalculatorController() {
   const resolutionContract = useMemo(
     () => buildResolutionContract(resolvedVehicle),
     [resolvedVehicle]
+  );
+
+  const additionalTcoCosts = useMemo(
+    () =>
+      buildAdditionalTcoCosts({
+        registrationAnnual,
+        insuranceAnnual,
+        leasingMonthly,
+        adminMonthly,
+        extraordinaryReserve,
+        operatingMonthly,
+      }),
+    [
+      registrationAnnual,
+      insuranceAnnual,
+      leasingMonthly,
+      adminMonthly,
+      extraordinaryReserve,
+      operatingMonthly,
+    ]
   );
 
   const resolverMissingConfirmations = resolvedVehicle?.missingConfirmations || [];
@@ -518,6 +599,19 @@ export function useFleetCalculatorController() {
     setGearboxOverride,
     drivetrainOverride,
     setDrivetrainOverride,
+    registrationAnnual,
+    setRegistrationAnnual,
+    insuranceAnnual,
+    setInsuranceAnnual,
+    leasingMonthly,
+    setLeasingMonthly,
+    adminMonthly,
+    setAdminMonthly,
+    extraordinaryReserve,
+    setExtraordinaryReserve,
+    operatingMonthly,
+    setOperatingMonthly,
+    additionalTcoCosts,
     decoded,
     exploitation,
     annualKm,
