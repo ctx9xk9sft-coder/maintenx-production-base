@@ -2,9 +2,13 @@ import React from "react";
 
 export default function BusinessDashboard({
   totalCost,
+  maintenanceTotal,
+  nonMaintenanceTotal,
   serviceCost,
   brakeCost,
   tireCost,
+  leasingCost,
+  insuranceCost,
   costPerKm,
   costPerMonth,
   eventCount
@@ -19,17 +23,20 @@ export default function BusinessDashboard({
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(7, 1fr)",
+        gridTemplateColumns: "repeat(10, 1fr)",
         gap: "12px",
         marginTop: "20px",
         marginBottom: "20px"
       }}
     >
-      <Stat label="Ukupno održavanje" value={formatRsd(totalCost)} />
+      <Stat label="Ukupni TCO" value={formatRsd(totalCost)} />
+      <Stat label="Održavanje ukupno" value={formatRsd(maintenanceTotal)} />
+      <Stat label="Ne-održavanje" value={formatRsd(nonMaintenanceTotal)} />
       <Stat label="Servisi" value={formatRsd(serviceCost)} />
       <Stat label="Kočnice" value={formatRsd(brakeCost)} />
       <Stat label="Gume" value={formatRsd(tireCost)} />
-      <Stat label="Trošak po km" value={formatRsd(costPerKm)} />
+      <Stat label="Leasing" value={formatRsd(leasingCost)} />
+      <Stat label="Osiguranje" value={formatRsd(insuranceCost)} />
       <Stat label="Trošak po mesecu" value={formatRsd(costPerMonth)} />
       <Stat label="Ukupni događaji" value={formatNum(eventCount)} />
     </div>
