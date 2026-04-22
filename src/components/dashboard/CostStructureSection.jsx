@@ -4,19 +4,35 @@ export default function CostStructureSection({
   totalCost,
   serviceCost,
   brakeCost,
-  tireCost
+  tireCost,
+  breakdown = null,
 }) {
-  const safeTotal = totalCost || 0;
+  const safeTotal = Number(totalCost || 0);
 
-  const servicePct = safeTotal > 0 ? (serviceCost / safeTotal) * 100 : 0;
-  const brakePct = safeTotal > 0 ? (brakeCost / safeTotal) * 100 : 0;
-  const tirePct = safeTotal > 0 ? (tireCost / safeTotal) * 100 : 0;
+  const normalizedBreakdown = breakdown && Object.keys(breakdown).length > 0
+    ? breakdown
+    : {
+        maintenance: Number(serviceCost || 0) + Number(brakeCost || 0) + Number(tireCost || 0),
+        registration: 0,
+        insurance: 0,
+        leasing: 0,
+        administrative: 0,
+        extraordinary: 0,
+        operating: Math.max(
+          0,
+          safeTotal - Number(serviceCost || 0) - Number(brakeCost || 0) - Number(tireCost || 0)
+        ),
+      };
 
-  const otherCost = Math.max(
-    0,
-    safeTotal - (serviceCost || 0) - (brakeCost || 0) - (tireCost || 0)
-  );
-  const otherPct = safeTotal > 0 ? (otherCost / safeTotal) * 100 : 0;
+  const rows = [
+    { key: "maintenance", label: "Održavanje", value: Number(normalizedBreakdown.maintenance || 0) },
+    { key: "registration", label: "Registracija", value: Number(normalizedBreakdown.registration || 0) },
+    { key: "insurance", label: "Osiguranje", value: Number(normalizedBreakdown.insurance || 0) },
+    { key: "leasing", label: "Leasing", value: Number(normalizedBreakdown.leasing || 0) },
+    { key: "administrative", label: "Administracija", value: Number(normalizedBreakdown.administrative || 0) },
+    { key: "extraordinary", label: "Vanredni", value: Number(normalizedBreakdown.extraordinary || 0) },
+    { key: "operating", label: "Operativni", value: Number(normalizedBreakdown.operating || 0) },
+  ];
 
   const formatRsd = (v) =>
     new Intl.NumberFormat("sr-RS").format(Math.round(v || 0)) + " RSD";
@@ -41,7 +57,7 @@ export default function CostStructureSection({
           color: "#0f172a"
         }}
       >
-        Cost structure
+        Full TCO structure
       </div>
 
       <div
@@ -51,26 +67,18 @@ export default function CostStructureSection({
           gap: "12px"
         }}
       >
-        <CostCard
-          label="Servisi"
-          value={formatRsd(serviceCost)}
-          percent={formatPct(servicePct)}
-        />
-        <CostCard
-          label="Kočnice"
-          value={formatRsd(brakeCost)}
-          percent={formatPct(brakePct)}
-        />
-        <CostCard
-          label="Gume"
-          value={formatRsd(tireCost)}
-          percent={formatPct(tirePct)}
-        />
-        <CostCard
-          label="Ostalo"
-          value={formatRsd(otherCost)}
-          percent={formatPct(otherPct)}
-        />
+        {rows.map((row) => {
+          const percent = safeTotal > 0 ? (row.value / safeTotal) * 100 : 0;
+
+          return (
+            <CostCard
+              key={row.key}
+              label={row.label}
+              value={formatRsd(row.value)}
+              percent={formatPct(percent)}
+            />
+          );
+        })}
       </div>
     </div>
   );
