@@ -19,6 +19,13 @@ export default function BusinessDashboard({
   const formatNum = (v) =>
     new Intl.NumberFormat("sr-RS").format(Math.round(v || 0));
 
+  const safeTotal = Number(totalCost || 0);
+  const derivedMaintenance = Number(serviceCost || 0) + Number(brakeCost || 0) + Number(tireCost || 0);
+  const resolvedMaintenance = Number(maintenanceTotal || 0) > 0 ? Number(maintenanceTotal || 0) : derivedMaintenance;
+  const resolvedNonMaintenance = Number(nonMaintenanceTotal || 0) > 0
+    ? Number(nonMaintenanceTotal || 0)
+    : Math.max(0, safeTotal - resolvedMaintenance);
+
   return (
     <div
       style={{
@@ -29,9 +36,9 @@ export default function BusinessDashboard({
         marginBottom: "20px"
       }}
     >
-      <Stat label="Ukupni TCO" value={formatRsd(totalCost)} />
-      <Stat label="Održavanje ukupno" value={formatRsd(maintenanceTotal)} />
-      <Stat label="Ne-održavanje" value={formatRsd(nonMaintenanceTotal)} />
+      <Stat label="Ukupni TCO" value={formatRsd(safeTotal)} />
+      <Stat label="Održavanje ukupno" value={formatRsd(resolvedMaintenance)} />
+      <Stat label="Ne-održavanje" value={formatRsd(resolvedNonMaintenance)} />
       <Stat label="Servisi" value={formatRsd(serviceCost)} />
       <Stat label="Kočnice" value={formatRsd(brakeCost)} />
       <Stat label="Gume" value={formatRsd(tireCost)} />
