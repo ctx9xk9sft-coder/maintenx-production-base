@@ -147,6 +147,18 @@ export default function App() {
     setGearboxOverride,
     drivetrainOverride,
     setDrivetrainOverride,
+    registrationAnnual,
+    setRegistrationAnnual,
+    insuranceAnnual,
+    setInsuranceAnnual,
+    leasingMonthly,
+    setLeasingMonthly,
+    adminMonthly,
+    setAdminMonthly,
+    extraordinaryReserve,
+    setExtraordinaryReserve,
+    operatingMonthly,
+    setOperatingMonthly,
     decoded,
     exploitation,
     annualKm,
@@ -294,6 +306,18 @@ export default function App() {
               setPartsDiscount={setPartsDiscount}
               oilDiscount={oilDiscount}
               setOilDiscount={setOilDiscount}
+              registrationAnnual={registrationAnnual}
+              setRegistrationAnnual={setRegistrationAnnual}
+              insuranceAnnual={insuranceAnnual}
+              setInsuranceAnnual={setInsuranceAnnual}
+              leasingMonthly={leasingMonthly}
+              setLeasingMonthly={setLeasingMonthly}
+              adminMonthly={adminMonthly}
+              setAdminMonthly={setAdminMonthly}
+              extraordinaryReserve={extraordinaryReserve}
+              setExtraordinaryReserve={setExtraordinaryReserve}
+              operatingMonthly={operatingMonthly}
+              setOperatingMonthly={setOperatingMonthly}
               exploitation={exploitation}
               decoded={decoded}
               annualKm={annualKm}
