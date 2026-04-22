@@ -324,7 +324,7 @@ export function useFleetCalculatorController() {
     flexInterval,
   ]);
 
-  const maintenancePlan = useMemo(() => {
+  const pricedMaintenancePlan = useMemo(() => {
     if (!canGenerateMaintenancePlan || !maintenancePlanBase) return null;
 
     return priceMaintenancePlan({
@@ -354,11 +354,11 @@ export function useFleetCalculatorController() {
   const tcoSummary = useMemo(
     () =>
       aggregateTcoCosts({
-        maintenanceTotal: maintenancePlan?.totals?.totalCost || 0,
+        maintenanceTotal: pricedMaintenancePlan?.totals?.totalCost || 0,
         contractMonths,
         additionalCosts: additionalTcoCosts,
       }),
-    [maintenancePlan, contractMonths, additionalTcoCosts]
+    [pricedMaintenancePlan, contractMonths, additionalTcoCosts]
   );
 
   const scenarioRows = useMemo(() => {
@@ -433,16 +433,16 @@ export function useFleetCalculatorController() {
   const planTotalMaintenance = Number(tcoSummary?.maintenanceTotal || 0);
   const planTotalNonMaintenance = Number(tcoSummary?.nonMaintenanceTotal || 0);
   const planTotalCost = Number(tcoSummary?.grandTotal || 0);
-  const planTotalService = maintenancePlan?.totals?.totalServiceCost || 0;
-  const planTotalBrakes = maintenancePlan?.totals?.totalBrakeCost || 0;
-  const planTotalTires = maintenancePlan?.totals?.totalTireCost || 0;
+  const planTotalService = pricedMaintenancePlan?.totals?.totalServiceCost || 0;
+  const planTotalBrakes = pricedMaintenancePlan?.totals?.totalBrakeCost || 0;
+  const planTotalTires = pricedMaintenancePlan?.totals?.totalTireCost || 0;
   const planTotalLeasing = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.LEASING);
   const planTotalInsurance = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.INSURANCE);
   const planTotalRegistration = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.REGISTRATION);
   const planTotalAdministrative = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.ADMINISTRATIVE);
   const planTotalExtraordinary = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.EXTRAORDINARY);
   const planTotalOperating = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.OPERATING);
-  const planTotalEvents = maintenancePlan?.totals?.totalEvents || 0;
+  const planTotalEvents = pricedMaintenancePlan?.totals?.totalEvents || 0;
   const planCostPerKm = plannedKm ? planTotalCost / plannedKm : 0;
   const planCostPerMonth = contractMonths ? planTotalCost / contractMonths : 0;
 
@@ -456,14 +456,53 @@ export function useFleetCalculatorController() {
     operating: planTotalOperating,
   };
 
+  const maintenancePlan = useMemo(() => {
+    if (!pricedMaintenancePlan) return null;
+
+    const maintenanceOnlyTotal = Number(pricedMaintenancePlan?.totals?.totalCost || 0);
+
+    return {
+      ...pricedMaintenancePlan,
+      totals: {
+        ...pricedMaintenancePlan.totals,
+        maintenanceTotal: maintenanceOnlyTotal,
+        nonMaintenanceTotal: planTotalNonMaintenance,
+        totalCost: planTotalCost,
+        totalCostMaintenanceOnly: maintenanceOnlyTotal,
+        costPerKm: planCostPerKm,
+        costPerMonth: planCostPerMonth,
+      },
+      pricingMeta: {
+        ...pricedMaintenancePlan.pricingMeta,
+        tcoSummary,
+        tcoBreakdown,
+        maintenanceTotal: maintenanceOnlyTotal,
+        nonMaintenanceTotal: planTotalNonMaintenance,
+        grandTotal: planTotalCost,
+        plannedKm,
+        contractMonths,
+      },
+    };
+  }, [
+    pricedMaintenancePlan,
+    tcoSummary,
+    tcoBreakdown,
+    planTotalNonMaintenance,
+    planTotalCost,
+    planCostPerKm,
+    planCostPerMonth,
+    plannedKm,
+    contractMonths,
+  ]);
+
   const serviceEvents =
-    maintenancePlan?.events?.filter(
+    pricedMaintenancePlan?.events?.filter(
       (event) => event.category !== "brakes" && event.category !== "tires"
     ) || [];
   const brakeEvents =
-    maintenancePlan?.events?.filter((event) => event.category === "brakes") || [];
+    pricedMaintenancePlan?.events?.filter((event) => event.category === "brakes") || [];
   const tireEvents =
-    maintenancePlan?.events?.filter((event) => event.category === "tires") || [];
+    pricedMaintenancePlan?.events?.filter((event) => event.category === "tires") || [];
 
   const planningGate = validation || null;
   const missingFields = planningGate?.missingFields || [];
