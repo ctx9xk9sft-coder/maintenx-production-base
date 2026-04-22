@@ -8,7 +8,7 @@ import { resolveVehicleForMaintenance } from "../services/vehicleResolver.js";
 import { buildMaintenancePlan } from "../services/buildMaintenancePlan.js";
 import { priceMaintenancePlan } from "../services/pricingEngine.js";
 import { getVehiclePresentation } from "../data/vehiclePresentation.js";
-import { formatRsd, formatNum } from "../utils/formatters.js";
+import { formatRsd } from "../utils/formatters.js";
 import engineBusinessGroups from "../data/engine_business_groups.json" with { type: "json" };
 import gearboxBusinessGroups from "../data/gearbox_business_groups.json" with { type: "json" };
 import {
@@ -20,6 +20,7 @@ import { computePricingConfidence } from "../services/confidence/computePricingC
 import { computeQuoteReadiness } from "../services/confidence/computeQuoteReadiness.js";
 import { buildResolutionContract } from "../contracts/resolutionContract.js";
 import { createTcoCostInput, TCO_COST_CATEGORY, TCO_COST_FREQUENCY } from "../domain/TcoCostInput.js";
+import { aggregateTcoCosts } from "../services/tcoAggregationEngine.js";
 
 function getStatusLabel(status) {
   if (status === "ready") return "READY";
@@ -194,6 +195,10 @@ function buildAdditionalTcoCosts({
   ];
 }
 
+function getCategoryTotal(summary, category) {
+  return Number(summary?.categories?.[category]?.total || 0);
+}
+
 export function useFleetCalculatorController() {
   const [sessionUser] = useState({
     displayName: "Admin demo",
@@ -346,6 +351,16 @@ export function useFleetCalculatorController() {
     oilDiscount,
   ]);
 
+  const tcoSummary = useMemo(
+    () =>
+      aggregateTcoCosts({
+        maintenanceTotal: maintenancePlan?.totals?.totalCost || 0,
+        contractMonths,
+        additionalCosts: additionalTcoCosts,
+      }),
+    [maintenancePlan, contractMonths, additionalTcoCosts]
+  );
+
   const scenarioRows = useMemo(() => {
     if (!canGenerateMaintenancePlan) return [];
 
@@ -415,13 +430,31 @@ export function useFleetCalculatorController() {
     oilDiscount,
   ]);
 
-  const planTotalCost = maintenancePlan?.totals?.totalCost || 0;
+  const planTotalMaintenance = Number(tcoSummary?.maintenanceTotal || 0);
+  const planTotalNonMaintenance = Number(tcoSummary?.nonMaintenanceTotal || 0);
+  const planTotalCost = Number(tcoSummary?.grandTotal || 0);
   const planTotalService = maintenancePlan?.totals?.totalServiceCost || 0;
   const planTotalBrakes = maintenancePlan?.totals?.totalBrakeCost || 0;
   const planTotalTires = maintenancePlan?.totals?.totalTireCost || 0;
+  const planTotalLeasing = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.LEASING);
+  const planTotalInsurance = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.INSURANCE);
+  const planTotalRegistration = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.REGISTRATION);
+  const planTotalAdministrative = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.ADMINISTRATIVE);
+  const planTotalExtraordinary = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.EXTRAORDINARY);
+  const planTotalOperating = getCategoryTotal(tcoSummary, TCO_COST_CATEGORY.OPERATING);
   const planTotalEvents = maintenancePlan?.totals?.totalEvents || 0;
   const planCostPerKm = plannedKm ? planTotalCost / plannedKm : 0;
   const planCostPerMonth = contractMonths ? planTotalCost / contractMonths : 0;
+
+  const tcoBreakdown = {
+    maintenance: planTotalMaintenance,
+    registration: planTotalRegistration,
+    insurance: planTotalInsurance,
+    leasing: planTotalLeasing,
+    administrative: planTotalAdministrative,
+    extraordinary: planTotalExtraordinary,
+    operating: planTotalOperating,
+  };
 
   const serviceEvents =
     maintenancePlan?.events?.filter(
@@ -623,6 +656,8 @@ export function useFleetCalculatorController() {
     maintenancePlan,
     scenarioRows,
     scenarioComparisonData,
+    tcoSummary,
+    tcoBreakdown,
 
     planningGate,
     missingFields,
@@ -667,9 +702,17 @@ export function useFleetCalculatorController() {
     explainabilityNotes,
     getFieldLabel,
     planTotalCost,
+    planTotalMaintenance,
+    planTotalNonMaintenance,
     planTotalService,
     planTotalBrakes,
     planTotalTires,
+    planTotalLeasing,
+    planTotalInsurance,
+    planTotalRegistration,
+    planTotalAdministrative,
+    planTotalExtraordinary,
+    planTotalOperating,
     planTotalEvents,
     planCostPerKm,
     planCostPerMonth,
