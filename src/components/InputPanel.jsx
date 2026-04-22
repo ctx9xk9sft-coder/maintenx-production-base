@@ -27,6 +27,18 @@ export default function InputPanel({
   setPartsDiscount,
   oilDiscount,
   setOilDiscount,
+  registrationAnnual,
+  setRegistrationAnnual,
+  insuranceAnnual,
+  setInsuranceAnnual,
+  leasingMonthly,
+  setLeasingMonthly,
+  adminMonthly,
+  setAdminMonthly,
+  extraordinaryReserve,
+  setExtraordinaryReserve,
+  operatingMonthly,
+  setOperatingMonthly,
   exploitation,
   decoded,
   annualKm,
@@ -44,7 +56,7 @@ export default function InputPanel({
   const isExpert = viewMode === "expert";
   const hasMissingConfirmations = resolverMissingConfirmations?.length > 0;
   const engineBusinessOptions = Object.values(engineBusinessGroups);
-const gearboxBusinessOptions = Object.values(gearboxBusinessGroups);
+  const gearboxBusinessOptions = Object.values(gearboxBusinessGroups);
 
   return (
     <div style={styles.sidebarCard}>
@@ -105,51 +117,51 @@ const gearboxBusinessOptions = Object.values(gearboxBusinessGroups);
           <div style={styles.manualHintOk}>Nema obaveznih ručnih potvrda.</div>
         )}
 
-<label style={styles.label}>Motor</label>
-{isExpert ? (
-  <input
-    style={styles.input}
-    value={engineOverride}
-    onChange={(e) => setEngineOverride(e.target.value.toUpperCase())}
-    placeholder="npr. DTRD"
-  />
-) : (
-  <select
-    style={styles.input}
-    value={engineOverride}
-    onChange={(e) => setEngineOverride(e.target.value)}
-  >
-    <option value="">Izaberi motor</option>
-    {engineBusinessOptions.map((group) => (
-      <option key={group.label} value={group.engineCodes[0]}>
-        {group.label}
-      </option>
-    ))}
-  </select>
-)}
+        <label style={styles.label}>Motor</label>
+        {isExpert ? (
+          <input
+            style={styles.input}
+            value={engineOverride}
+            onChange={(e) => setEngineOverride(e.target.value.toUpperCase())}
+            placeholder="npr. DTRD"
+          />
+        ) : (
+          <select
+            style={styles.input}
+            value={engineOverride}
+            onChange={(e) => setEngineOverride(e.target.value)}
+          >
+            <option value="">Izaberi motor</option>
+            {engineBusinessOptions.map((group) => (
+              <option key={group.label} value={group.engineCodes[0]}>
+                {group.label}
+              </option>
+            ))}
+          </select>
+        )}
 
-<label style={styles.label}>Menjač</label>
-{isExpert ? (
-  <input
-    style={styles.input}
-    value={gearboxOverride}
-    onChange={(e) => setGearboxOverride(e.target.value.toUpperCase())}
-    placeholder="npr. WJV ili DSG"
-  />
-) : (
-  <select
-    style={styles.input}
-    value={gearboxOverride}
-    onChange={(e) => setGearboxOverride(e.target.value)}
-  >
-    <option value="">Izaberi menjač</option>
-    {Object.entries(gearboxBusinessGroups).map(([key, group]) => (
-  <option key={key} value={key}>
-    {group.label}
-  </option>
-))}
-  </select>
-)}
+        <label style={styles.label}>Menjač</label>
+        {isExpert ? (
+          <input
+            style={styles.input}
+            value={gearboxOverride}
+            onChange={(e) => setGearboxOverride(e.target.value.toUpperCase())}
+            placeholder="npr. WJV ili DSG"
+          />
+        ) : (
+          <select
+            style={styles.input}
+            value={gearboxOverride}
+            onChange={(e) => setGearboxOverride(e.target.value)}
+          >
+            <option value="">Izaberi menjač</option>
+            {Object.entries(gearboxBusinessOptions).map(([key, group]) => (
+              <option key={key} value={key}>
+                {group.label}
+              </option>
+            ))}
+          </select>
+        )}
 
         <label style={styles.label}>Pogon</label>
         <select
@@ -230,7 +242,7 @@ const gearboxBusinessOptions = Object.values(gearboxBusinessGroups);
       </div>
 
       <div style={styles.sectionBlock}>
-        <div style={styles.blockTitle}>4. Cenovni parametri</div>
+        <div style={styles.blockTitle}>4. Cenovni parametri održavanja</div>
 
         <div style={styles.twoCol}>
           <div>
@@ -318,6 +330,73 @@ const gearboxBusinessOptions = Object.values(gearboxBusinessGroups);
           >
             Primer rabata
           </button>
+        </div>
+      </div>
+
+      <div style={styles.sectionBlock}>
+        <div style={styles.blockTitle}>5. Dodatni TCO troškovi</div>
+
+        <div style={styles.twoCol}>
+          <div>
+            <label style={styles.label}>Registracija godišnje (RSD)</label>
+            <input
+              style={styles.input}
+              type="number"
+              value={registrationAnnual}
+              onChange={(e) => setRegistrationAnnual(Number(e.target.value) || 0)}
+            />
+          </div>
+          <div>
+            <label style={styles.label}>Osiguranje godišnje (RSD)</label>
+            <input
+              style={styles.input}
+              type="number"
+              value={insuranceAnnual}
+              onChange={(e) => setInsuranceAnnual(Number(e.target.value) || 0)}
+            />
+          </div>
+        </div>
+
+        <div style={styles.twoCol}>
+          <div>
+            <label style={styles.label}>Leasing / rata mesečno</label>
+            <input
+              style={styles.input}
+              type="number"
+              value={leasingMonthly}
+              onChange={(e) => setLeasingMonthly(Number(e.target.value) || 0)}
+            />
+          </div>
+          <div>
+            <label style={styles.label}>Administrativni trošak mesečno</label>
+            <input
+              style={styles.input}
+              type="number"
+              value={adminMonthly}
+              onChange={(e) => setAdminMonthly(Number(e.target.value) || 0)}
+            />
+          </div>
+        </div>
+
+        <div style={styles.twoCol}>
+          <div>
+            <label style={styles.label}>Vanredni troškovi / rezerva</label>
+            <input
+              style={styles.input}
+              type="number"
+              value={extraordinaryReserve}
+              onChange={(e) => setExtraordinaryReserve(Number(e.target.value) || 0)}
+            />
+          </div>
+          <div>
+            <label style={styles.label}>Ostali operativni troškovi mesečno</label>
+            <input
+              style={styles.input}
+              type="number"
+              value={operatingMonthly}
+              onChange={(e) => setOperatingMonthly(Number(e.target.value) || 0)}
+            />
+          </div>
         </div>
       </div>
 
