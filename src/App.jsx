@@ -12,6 +12,9 @@ import ScenarioComparisonSection from "./components/dashboard/ScenarioComparison
 import FleetOptimizerSection from "./components/dashboard/FleetOptimizerSection.jsx";
 import { useFleetCalculatorController } from "./hooks/useFleetCalculatorController.js";
 import { getContracts, saveContract } from "./services/acceptedContractStore.js";
+import ActiveContractDetailPanel from "./components/contracts/ActiveContractDetailPanel.jsx";
+import { getActiveContractDetail } from "./services/contracts/getActiveContractDetail.js";
+import { postActualCostEntry } from "./services/contracts/postActualCostEntry.js";
 
 function buildSelectedScenario({
   scenarioComparisonData,
@@ -157,7 +160,7 @@ function StepBar({ currentStep, setCurrentStep, canGoToAnalysis }) {
   );
 }
 
-function AcceptedContractsList({ acceptedContracts }) {
+function AcceptedContractsList({ acceptedContracts, onOpenContract }) {
   return (
     <div style={styles.contentCard}>
       <h2 style={styles.sectionTitle}>Prihvaćeni ugovori</h2>
@@ -166,7 +169,14 @@ function AcceptedContractsList({ acceptedContracts }) {
       ) : (
         <div style={styles.acceptedContractsList}>
           {acceptedContracts.map((contract) => (
-            <div key={contract.id} style={styles.acceptedContractCard}>
+            <div
+              key={contract.id}
+              style={{
+                ...styles.acceptedContractCard,
+                cursor: "pointer",
+              }}
+              onClick={() => onOpenContract(contract.id)}
+            >
               <div style={styles.acceptedContractTopRow}>
                 <div style={styles.acceptedContractTitle}>{contract.modelLabel}</div>
                 <div style={styles.acceptedContractBadge}>
@@ -277,7 +287,6 @@ export default function App() {
     serviceEvents,
     brakeEvents,
     tireEvents,
-    scenarioRows,
     scenarioComparisonData,
     tcoBreakdown,
     EXPLOITATION_PROFILES,
@@ -286,6 +295,8 @@ export default function App() {
   const [acceptedContracts, setAcceptedContracts] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedScenarioId, setSelectedScenarioId] = useState(null);
+  const [activeContractId, setActiveContractId] = useState(null);
+  const [activeContractDetail, setActiveContractDetail] = useState(null);
 
   useEffect(() => {
     setAcceptedContracts(getContracts());
@@ -339,6 +350,11 @@ export default function App() {
 
   const latestAcceptedContract = useMemo(() => acceptedContracts[0] || null, [acceptedContracts]);
 
+  function openContract(contractId) {
+    setActiveContractId(contractId);
+    setActiveContractDetail(getActiveContractDetail(contractId));
+  }
+
   function handleAcceptQuote() {
     if (!canAcceptQuote) return;
 
@@ -354,7 +370,12 @@ export default function App() {
     });
 
     saveContract(snapshot);
-    setAcceptedContracts(getContracts());
+    const contracts = getContracts();
+    setAcceptedContracts(contracts);
+
+    if (snapshot?.id) {
+      openContract(snapshot.id);
+    }
   }
 
   return (
@@ -382,14 +403,20 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setViewMode("business")}
-                style={{ ...styles.modeBtn, ...(viewMode === "business" ? styles.modeBtnActive : {}) }}
+                style={{
+                  ...styles.modeBtn,
+                  ...(viewMode === "business" ? styles.modeBtnActive : {}),
+                }}
               >
                 Business
               </button>
               <button
                 type="button"
                 onClick={() => setViewMode("expert")}
-                style={{ ...styles.modeBtn, ...(viewMode === "expert" ? styles.modeBtnActiveDark : {}) }}
+                style={{
+                  ...styles.modeBtn,
+                  ...(viewMode === "expert" ? styles.modeBtnActiveDark : {}),
+                }}
               >
                 Expert
               </button>
@@ -397,7 +424,11 @@ export default function App() {
           </div>
         </div>
 
-        <StepBar currentStep={currentStep} setCurrentStep={setCurrentStep} canGoToAnalysis={canGoToAnalysis} />
+        <StepBar
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          canGoToAnalysis={canGoToAnalysis}
+        />
 
         {currentStep === 1 ? (
           <div style={styles.mainGrid}>
@@ -458,12 +489,15 @@ export default function App() {
               <div style={styles.contentCard}>
                 <h2 style={styles.sectionTitle}>Unos i validacija</h2>
                 <div style={styles.muted}>
-                  Na ovom koraku pripremaš vozilo, ugovor i assumptions. Tek kada kalkulacija postoji, prelaziš na analizu.
+                  Na ovom koraku pripremaš vozilo, ugovor i assumptions. Tek kada kalkulacija
+                  postoji, prelaziš na analizu.
                 </div>
                 <div style={styles.kpiRow}>
                   <div style={styles.kpiTile}>
                     <div style={styles.kpiLabel}>VIN status</div>
-                    <div style={styles.kpiValue}>{decoded?.supported ? "Podržan" : "Nije podržan"}</div>
+                    <div style={styles.kpiValue}>
+                      {decoded?.supported ? "Podržan" : "Nije podržan"}
+                    </div>
                   </div>
                   <div style={styles.kpiTile}>
                     <div style={styles.kpiLabel}>Quote readiness</div>
@@ -471,22 +505,43 @@ export default function App() {
                   </div>
                   <div style={styles.kpiTile}>
                     <div style={styles.kpiLabel}>Plan</div>
-                    <div style={styles.kpiValue}>{maintenancePlan ? "Spreman za analizu" : "Još nije spreman"}</div>
+                    <div style={styles.kpiValue}>
+                      {maintenancePlan ? "Spreman za analizu" : "Još nije spreman"}
+                    </div>
                   </div>
                 </div>
-                {maintenanceGateMessage ? <div style={styles.blockedBox}>{maintenanceGateMessage}</div> : null}
+                {maintenanceGateMessage ? (
+                  <div style={styles.blockedBox}>{maintenanceGateMessage}</div>
+                ) : null}
                 <div style={styles.actionRow}>
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
                     disabled={!canGoToAnalysis}
-                    style={{ ...styles.primaryBtn, ...(!canGoToAnalysis ? styles.btnDisabled : {}) }}
+                    style={{
+                      ...styles.primaryBtn,
+                      ...(!canGoToAnalysis ? styles.btnDisabled : {}),
+                    }}
                   >
                     Nastavi na analizu
                   </button>
                 </div>
               </div>
-              <AcceptedContractsList acceptedContracts={acceptedContracts} />
+
+              <AcceptedContractsList
+                acceptedContracts={acceptedContracts}
+                onOpenContract={openContract}
+              />
+
+              {activeContractDetail ? (
+                <ActiveContractDetailPanel
+                  contract={activeContractDetail}
+                  onPostCost={(payload) => {
+                    const result = postActualCostEntry(payload);
+                    setActiveContractDetail(result.contract);
+                  }}
+                />
+              ) : null}
             </div>
           </div>
         ) : null}
@@ -498,7 +553,8 @@ export default function App() {
                 <div>
                   <h2 style={styles.sectionTitle}>Rezultati i analiza</h2>
                   <div style={styles.muted}>
-                    Ovde proveravaš vozilo, troškove, scenarije i odlučuješ koji scenario postaje zvanični quote baseline.
+                    Ovde proveravaš vozilo, troškove, scenarije i odlučuješ koji scenario postaje
+                    zvanični quote baseline.
                   </div>
                 </div>
                 <div style={styles.headerBadgeWrap}>
@@ -508,7 +564,9 @@ export default function App() {
               </div>
 
               {!decoded.supported ? (
-                <div style={{ color: "#b91c1c", fontWeight: 700, marginTop: 12 }}>{decoded.reason}</div>
+                <div style={{ color: "#b91c1c", fontWeight: 700, marginTop: 12 }}>
+                  {decoded.reason}
+                </div>
               ) : (
                 <>
                   <VehicleHeader
@@ -538,15 +596,21 @@ export default function App() {
                     <div style={styles.resolverGrid}>
                       <div style={styles.gateCard}>
                         <div style={styles.gateLabel}>Quote readiness</div>
-                        <div style={{ ...styles.gateBadge, ...quoteReadinessUi.style }}>{quoteReadinessUi.label}</div>
+                        <div style={{ ...styles.gateBadge, ...quoteReadinessUi.style }}>
+                          {quoteReadinessUi.label}
+                        </div>
                       </div>
                       <div style={styles.gateCard}>
                         <div style={styles.gateLabel}>Vehicle confidence</div>
-                        <div style={styles.resolverValue}>{String(vehicleConfidence?.level || "-").toUpperCase()}</div>
+                        <div style={styles.resolverValue}>
+                          {String(vehicleConfidence?.level || "-").toUpperCase()}
+                        </div>
                       </div>
                       <div style={styles.gateCard}>
                         <div style={styles.gateLabel}>Pricing confidence</div>
-                        <div style={styles.resolverValue}>{String(pricingConfidence?.level || "-").toUpperCase()}</div>
+                        <div style={styles.resolverValue}>
+                          {String(pricingConfidence?.level || "-").toUpperCase()}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -598,8 +662,16 @@ export default function App() {
               breakdown={selectedScenario?.tcoBreakdown || tcoBreakdown || null}
             />
 
-            <ScenarioComparisonSection scenarios={scenarioComparisonData} formatRsd={formatRsd} formatNum={formatNum} />
-            <FleetOptimizerSection scenarios={scenarioComparisonData} formatRsd={formatRsd} formatNum={formatNum} />
+            <ScenarioComparisonSection
+              scenarios={scenarioComparisonData}
+              formatRsd={formatRsd}
+              formatNum={formatNum}
+            />
+            <FleetOptimizerSection
+              scenarios={scenarioComparisonData}
+              formatRsd={formatRsd}
+              formatNum={formatNum}
+            />
 
             <MaintenancePlanSection
               serviceEvents={serviceEvents}
@@ -608,7 +680,9 @@ export default function App() {
               totalServiceCost={planTotalService}
               totalBrakeCost={planTotalBrakes}
               totalTireCost={planTotalTires}
-              totalCost={selectedScenario?.maintenanceCost || planTotalMaintenance || planTotalCost}
+              totalCost={
+                selectedScenario?.maintenanceCost || planTotalMaintenance || planTotalCost
+              }
               totalEvents={selectedScenario?.eventCount || planTotalEvents}
               showExpertSections={showExpertSections}
               formatNum={formatNum}
@@ -620,10 +694,13 @@ export default function App() {
                 <div>
                   <h2 style={styles.sectionTitle}>Scenario selection</h2>
                   <div style={styles.muted}>
-                    Izaberi scenario koji postaje zvanični quote baseline i ulazi u accepted contract.
+                    Izaberi scenario koji postaje zvanični quote baseline i ulazi u accepted
+                    contract.
                   </div>
                 </div>
-                {selectedScenario ? <span style={styles.lightBadge}>{`Selected: ${selectedScenario.label}`}</span> : null}
+                {selectedScenario ? (
+                  <span style={styles.lightBadge}>{`Selected: ${selectedScenario.label}`}</span>
+                ) : null}
               </div>
 
               {!canBuildProvisionalPlan ? (
@@ -652,7 +729,10 @@ export default function App() {
                         const monthlyCost = contractMonths > 0 ? totalCost / contractMonths : 0;
 
                         return (
-                          <tr key={row.km} style={isSelected ? styles.selectedScenarioRow : undefined}>
+                          <tr
+                            key={row.km}
+                            style={isSelected ? styles.selectedScenarioRow : undefined}
+                          >
                             <td style={styles.td}>{formatNum(row.km, 0)} km</td>
                             <td style={styles.tdRight}>{formatNum(row.km, 0)}</td>
                             <td style={styles.tdRight}>{formatRsd(maintenanceCost)}</td>
@@ -681,7 +761,11 @@ export default function App() {
             </div>
 
             <div style={styles.actionRow}>
-              <button type="button" onClick={() => setCurrentStep(1)} style={styles.secondaryBtn}>
+              <button
+                type="button"
+                onClick={() => setCurrentStep(1)}
+                style={styles.secondaryBtn}
+              >
                 Nazad na unos
               </button>
               <button
@@ -720,17 +804,39 @@ export default function App() {
                   label="Kilometraža / trajanje"
                   value={`${formatNum(selectedScenario?.plannedKm || plannedKm, 0)} km / ${contractMonths} mes`}
                 />
-                <InfoCard label="Tip eksploatacije" value={selectedScenario?.usageLabel || exploitationLabel} />
+                <InfoCard
+                  label="Tip eksploatacije"
+                  value={selectedScenario?.usageLabel || exploitationLabel}
+                />
                 <InfoCard label="Quote readiness" value={quoteReadinessUi.label} />
-                <InfoCard label="Ukupni trošak" value={formatRsd(selectedScenario?.totalCost || planTotalCost)} />
-                <InfoCard label="Maintenance" value={formatRsd(selectedScenario?.maintenanceCost || 0)} />
-                <InfoCard label="Non-maintenance" value={formatRsd(selectedScenario?.nonMaintenanceCost || 0)} />
-                <InfoCard label="Trošak / km" value={formatRsd(selectedScenario?.costPerKm || planCostPerKm)} />
-                <InfoCard label="Trošak / mesec" value={formatRsd(selectedScenario?.costPerMonth || planCostPerMonth)} />
+                <InfoCard
+                  label="Ukupni trošak"
+                  value={formatRsd(selectedScenario?.totalCost || planTotalCost)}
+                />
+                <InfoCard
+                  label="Maintenance"
+                  value={formatRsd(selectedScenario?.maintenanceCost || 0)}
+                />
+                <InfoCard
+                  label="Non-maintenance"
+                  value={formatRsd(selectedScenario?.nonMaintenanceCost || 0)}
+                />
+                <InfoCard
+                  label="Trošak / km"
+                  value={formatRsd(selectedScenario?.costPerKm || planCostPerKm)}
+                />
+                <InfoCard
+                  label="Trošak / mesec"
+                  value={formatRsd(selectedScenario?.costPerMonth || planCostPerMonth)}
+                />
               </div>
 
               <div style={styles.actionRow}>
-                <button type="button" onClick={() => setCurrentStep(2)} style={styles.secondaryBtn}>
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(2)}
+                  style={styles.secondaryBtn}
+                >
                   Nazad na analizu
                 </button>
                 <button
@@ -764,7 +870,20 @@ export default function App() {
               ) : null}
             </div>
 
-            <AcceptedContractsList acceptedContracts={acceptedContracts} />
+            <AcceptedContractsList
+              acceptedContracts={acceptedContracts}
+              onOpenContract={openContract}
+            />
+
+            {activeContractDetail ? (
+              <ActiveContractDetailPanel
+                contract={activeContractDetail}
+                onPostCost={(payload) => {
+                  const result = postActualCostEntry(payload);
+                  setActiveContractDetail(result.contract);
+                }}
+              />
+            ) : null}
           </div>
         ) : null}
       </div>
@@ -773,65 +892,250 @@ export default function App() {
 }
 
 const styles = {
-  page: { minHeight: "100vh", background: "linear-gradient(to bottom, #f1f5f9, #ffffff, #f1f5f9)", padding: 24, color: "#0f172a", fontFamily: "Arial, sans-serif" },
+  page: {
+    minHeight: "100vh",
+    background: "linear-gradient(to bottom, #f1f5f9, #ffffff, #f1f5f9)",
+    padding: 24,
+    color: "#0f172a",
+    fontFamily: "Arial, sans-serif",
+  },
   container: { maxWidth: 1500, margin: "0 auto" },
-  hero: { background: "#020617", color: "#fff", borderRadius: 28, padding: 28, display: "flex", justifyContent: "space-between", gap: 20, alignItems: "center", marginBottom: 24, boxShadow: "0 4px 20px rgba(0,0,0,0.12)" },
+  hero: {
+    background: "#020617",
+    color: "#fff",
+    borderRadius: 28,
+    padding: 28,
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 20,
+    alignItems: "center",
+    marginBottom: 24,
+    boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
+  },
   heroBadge: { fontSize: 14, color: "#cbd5e1", marginBottom: 12 },
   heroTitle: { fontSize: 48, margin: 0, lineHeight: 1.05 },
   heroSubtitle: { marginTop: 12, color: "#cbd5e1", fontSize: 18 },
-  heroMetaWrap: { display: "grid", gridTemplateColumns: "repeat(3, minmax(160px, 1fr))", gap: 12, minWidth: 520, alignItems: "stretch" },
-  heroMetaCard: { border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)", padding: 18, borderRadius: 20 },
+  heroMetaWrap: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, minmax(160px, 1fr))",
+    gap: 12,
+    minWidth: 520,
+    alignItems: "stretch",
+  },
+  heroMetaCard: {
+    border: "1px solid rgba(255,255,255,0.12)",
+    background: "rgba(255,255,255,0.04)",
+    padding: 18,
+    borderRadius: 20,
+  },
   heroMetaLabel: { fontSize: 12, color: "#94a3b8", marginBottom: 8 },
   heroMetaValue: { fontSize: 18, fontWeight: 700 },
-  modeSwitcher: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 20, padding: 8, minWidth: 220 },
-  modeBtn: { border: "1px solid rgba(255,255,255,0.18)", background: "transparent", color: "#cbd5e1", borderRadius: 14, padding: "14px 16px", fontSize: 15, fontWeight: 700, cursor: "pointer" },
+  modeSwitcher: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 8,
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(255,255,255,0.12)",
+    borderRadius: 20,
+    padding: 8,
+    minWidth: 220,
+  },
+  modeBtn: {
+    border: "1px solid rgba(255,255,255,0.18)",
+    background: "transparent",
+    color: "#cbd5e1",
+    borderRadius: 14,
+    padding: "14px 16px",
+    fontSize: 15,
+    fontWeight: 700,
+    cursor: "pointer",
+  },
   modeBtnActive: { background: "#fff", color: "#0f172a", border: "1px solid #fff" },
-  modeBtnActiveDark: { background: "#16a34a", color: "#fff", border: "1px solid #16a34a" },
+  modeBtnActiveDark: {
+    background: "#16a34a",
+    color: "#fff",
+    border: "1px solid #16a34a",
+  },
   stepperWrap: { display: "flex", gap: 12, marginBottom: 20 },
-  stepBtn: { border: "1px solid #cbd5e1", background: "#fff", color: "#0f172a", borderRadius: 14, padding: "12px 18px", fontWeight: 800, cursor: "pointer" },
+  stepBtn: {
+    border: "1px solid #cbd5e1",
+    background: "#fff",
+    color: "#0f172a",
+    borderRadius: 14,
+    padding: "12px 18px",
+    fontWeight: 800,
+    cursor: "pointer",
+  },
   stepBtnActive: { border: "1px solid #0f172a", background: "#0f172a", color: "#fff" },
   stepBtnDisabled: { opacity: 0.45, cursor: "not-allowed" },
   mainGrid: { display: "grid", gridTemplateColumns: "460px 1fr", gap: 24, alignItems: "start" },
-  contentCard: { background: "#fff", borderRadius: 28, padding: 28, boxShadow: "0 1px 10px rgba(0,0,0,0.08)", marginBottom: 20 },
+  contentCard: {
+    background: "#fff",
+    borderRadius: 28,
+    padding: 28,
+    boxShadow: "0 1px 10px rgba(0,0,0,0.08)",
+    marginBottom: 20,
+  },
   sectionTitle: { fontSize: 22, margin: "0 0 16px" },
   muted: { color: "#64748b", fontSize: 16 },
-  contentHeader: { display: "flex", justifyContent: "space-between", gap: 12, alignItems: "start", marginBottom: 18 },
+  contentHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 12,
+    alignItems: "start",
+    marginBottom: 18,
+  },
   headerBadgeWrap: { display: "flex", gap: 10, alignItems: "center" },
-  darkBadge: { background: "#0f172a", color: "#fff", padding: "8px 12px", borderRadius: 999, fontWeight: 700, fontSize: 14 },
-  lightBadge: { border: "1px solid #cbd5e1", padding: "8px 12px", borderRadius: 12, fontSize: 14, color: "#334155", background: "#fff" },
-  confirmGrid: { display: "grid", gridTemplateColumns: "repeat(3, minmax(180px, 1fr))", gap: 14, marginBottom: 18 },
-  kpiRow: { display: "grid", gridTemplateColumns: "repeat(3, minmax(160px, 1fr))", gap: 14, marginTop: 18, marginBottom: 18 },
+  darkBadge: {
+    background: "#0f172a",
+    color: "#fff",
+    padding: "8px 12px",
+    borderRadius: 999,
+    fontWeight: 700,
+    fontSize: 14,
+  },
+  lightBadge: {
+    border: "1px solid #cbd5e1",
+    padding: "8px 12px",
+    borderRadius: 12,
+    fontSize: 14,
+    color: "#334155",
+    background: "#fff",
+  },
+  confirmGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, minmax(180px, 1fr))",
+    gap: 14,
+    marginBottom: 18,
+  },
+  kpiRow: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, minmax(160px, 1fr))",
+    gap: 14,
+    marginTop: 18,
+    marginBottom: 18,
+  },
   kpiTile: { border: "1px solid #e2e8f0", borderRadius: 16, padding: 16, background: "#fff" },
   kpiLabel: { fontSize: 13, color: "#64748b", marginBottom: 10 },
   kpiValue: { fontSize: 18, fontWeight: 800, color: "#0f172a" },
   actionRow: { display: "flex", gap: 12, alignItems: "center", marginTop: 18, marginBottom: 6 },
-  primaryBtn: { border: "1px solid #166534", background: "#16a34a", color: "#fff", borderRadius: 12, padding: "12px 16px", fontWeight: 800, fontSize: 14, cursor: "pointer" },
-  secondaryBtn: { border: "1px solid #cbd5e1", background: "#fff", color: "#0f172a", borderRadius: 12, padding: "12px 16px", fontWeight: 800, fontSize: 14, cursor: "pointer" },
+  primaryBtn: {
+    border: "1px solid #166534",
+    background: "#16a34a",
+    color: "#fff",
+    borderRadius: 12,
+    padding: "12px 16px",
+    fontWeight: 800,
+    fontSize: 14,
+    cursor: "pointer",
+  },
+  secondaryBtn: {
+    border: "1px solid #cbd5e1",
+    background: "#fff",
+    color: "#0f172a",
+    borderRadius: 12,
+    padding: "12px 16px",
+    fontWeight: 800,
+    fontSize: 14,
+    cursor: "pointer",
+  },
   btnDisabled: { opacity: 0.45, cursor: "not-allowed" },
   tableWrap: { overflowX: "auto" },
   table: { width: "100%", borderCollapse: "collapse" },
-  th: { textAlign: "left", padding: "12px 10px", borderBottom: "1px solid #e2e8f0", color: "#64748b", fontSize: 14, verticalAlign: "top" },
-  thRight: { textAlign: "right", padding: "12px 10px", borderBottom: "1px solid #e2e8f0", color: "#64748b", fontSize: 14, verticalAlign: "top" },
-  td: { padding: "14px 10px", borderBottom: "1px solid #f1f5f9", fontSize: 16, verticalAlign: "top" },
-  tdRight: { padding: "14px 10px", borderBottom: "1px solid #f1f5f9", textAlign: "right", fontSize: 16, verticalAlign: "top" },
+  th: {
+    textAlign: "left",
+    padding: "12px 10px",
+    borderBottom: "1px solid #e2e8f0",
+    color: "#64748b",
+    fontSize: 14,
+    verticalAlign: "top",
+  },
+  thRight: {
+    textAlign: "right",
+    padding: "12px 10px",
+    borderBottom: "1px solid #e2e8f0",
+    color: "#64748b",
+    fontSize: 14,
+    verticalAlign: "top",
+  },
+  td: {
+    padding: "14px 10px",
+    borderBottom: "1px solid #f1f5f9",
+    fontSize: 16,
+    verticalAlign: "top",
+  },
+  tdRight: {
+    padding: "14px 10px",
+    borderBottom: "1px solid #f1f5f9",
+    textAlign: "right",
+    fontSize: 16,
+    verticalAlign: "top",
+  },
   contentCardInner: { marginTop: 18, paddingTop: 18, borderTop: "1px solid #e2e8f0" },
   candidateTitle: { fontSize: 18, fontWeight: 700, marginBottom: 12 },
   resolverGrid: { display: "grid", gridTemplateColumns: "repeat(3, minmax(160px, 1fr))", gap: 12 },
   gateCard: { border: "1px solid #e2e8f0", borderRadius: 16, padding: 14, background: "#fff" },
   gateLabel: { fontSize: 14, color: "#64748b", marginBottom: 10 },
-  gateBadge: { display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: 38, padding: "8px 12px", borderRadius: 999, fontSize: 13, fontWeight: 800 },
+  gateBadge: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 38,
+    padding: "8px 12px",
+    borderRadius: 999,
+    fontSize: 13,
+    fontWeight: 800,
+  },
   resolverValue: { fontSize: 15, fontWeight: 700, color: "#0f172a" },
-  alertInfo: { border: "1px solid #cbd5e1", background: "#f8fafc", borderRadius: 18, padding: 16 },
+  alertInfo: {
+    border: "1px solid #cbd5e1",
+    background: "#f8fafc",
+    borderRadius: 18,
+    padding: 16,
+  },
   alertTitle: { fontSize: 16, fontWeight: 700, marginBottom: 10 },
   warningList: { display: "grid", gap: 8 },
   warningItem: { fontSize: 15, color: "#334155" },
-  blockedBox: { border: "1px solid #fca5a5", background: "#fef2f2", color: "#991b1b", borderRadius: 18, padding: 18, fontSize: 16, fontWeight: 700, marginTop: 16 },
+  blockedBox: {
+    border: "1px solid #fca5a5",
+    background: "#fef2f2",
+    color: "#991b1b",
+    borderRadius: 18,
+    padding: 18,
+    fontSize: 16,
+    fontWeight: 700,
+    marginTop: 16,
+  },
   acceptedContractsList: { display: "grid", gap: 12 },
-  acceptedContractCard: { border: "1px solid #e2e8f0", borderRadius: 16, padding: 16, background: "#fff" },
-  acceptedContractTopRow: { display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 8 },
+  acceptedContractCard: {
+    border: "1px solid #e2e8f0",
+    borderRadius: 16,
+    padding: 16,
+    background: "#fff",
+  },
+  acceptedContractTopRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 12,
+    alignItems: "center",
+    marginBottom: 8,
+  },
   acceptedContractTitle: { fontSize: 16, fontWeight: 800, color: "#0f172a" },
-  acceptedContractBadge: { padding: "6px 10px", borderRadius: 999, background: "#e2e8f0", color: "#334155", fontSize: 12, fontWeight: 800 },
+  acceptedContractBadge: {
+    padding: "6px 10px",
+    borderRadius: 999,
+    background: "#e2e8f0",
+    color: "#334155",
+    fontSize: 12,
+    fontWeight: 800,
+  },
   acceptedContractMeta: { fontSize: 14, color: "#475569", marginTop: 6 },
   selectedScenarioRow: { background: "#f0fdf4" },
-  acceptedInfoBox: { border: "1px solid #cbd5e1", background: "#f8fafc", borderRadius: 18, padding: 16, marginTop: 16 },
+  acceptedInfoBox: {
+    border: "1px solid #cbd5e1",
+    background: "#f8fafc",
+    borderRadius: 18,
+    padding: 16,
+    marginTop: 16,
+  },
 };
