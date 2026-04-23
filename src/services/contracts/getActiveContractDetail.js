@@ -1,5 +1,5 @@
-import { getAcceptedContractById } from "../../src/repositories/AcceptedContractRepository.js";
-import { buildActiveContractView } from "../../src/domain/contracts/buildActiveContractView.js";
+import { getAcceptedContractById } from "../../repositories/AcceptedContractRepository.js";
+import { buildActiveContractView } from "../../domain/contracts/buildActiveContractView.js";
 
 export function getActiveContractDetail(contractId) {
   const contract = getAcceptedContractById(contractId);
