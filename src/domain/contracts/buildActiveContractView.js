@@ -2,13 +2,20 @@ function safe(value) {
   return Number(value || 0);
 }
 
-export function buildActiveContractView(contract) {
+function sum(entries = []) {
+  return entries.reduce((acc, item) => acc + safe(item?.amount), 0);
+}
+
+export function buildActiveContractView(contract, actualEntries = []) {
   if (!contract?.id) {
     return null;
   }
 
   const totals = contract?.planSnapshot?.totals || {};
   const breakdown = contract?.selectedScenario?.tcoBreakdown || {};
+
+  const plannedTotal = safe(totals.totalCost);
+  const actualTotal = sum(actualEntries);
 
   return {
     id: contract.id,
@@ -24,7 +31,7 @@ export function buildActiveContractView(contract) {
       tireCategory: contract?.contractParams?.tireCategory || null,
     },
     plannedBaseline: {
-      totalCost: safe(totals.totalCost),
+      totalCost: plannedTotal,
       maintenanceCost: safe(totals.maintenanceTotal),
       nonMaintenanceCost: safe(totals.nonMaintenanceTotal),
       costPerKm: safe(totals.costPerKm),
@@ -39,9 +46,9 @@ export function buildActiveContractView(contract) {
       operating: safe(breakdown.operating),
     },
     actuals: {
-      totalPosted: 0,
-      variance: 0,
-      entries: [],
+      totalPosted: actualTotal,
+      variance: actualTotal - plannedTotal,
+      entries: actualEntries,
     },
   };
 }
